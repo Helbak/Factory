@@ -1,5 +1,7 @@
 package code.web;
 
+import code.domain.Product;
+import code.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,29 +21,47 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class MyController {
-//    static final int DEFAULT_GROUP_ID = -1;
-//    static final int ITEMS_PER_PAGE = 6;
-////private Map<String, String > map = new ConcurrentHashMap<>();
-//    private ContactService contactService;
-//private UserService userService;
-//
-//    @RequestMapping("/")
-//    public String loginControll() {
-//        return "login";
-//    }
+private ProductService productService;
+
+    @RequestMapping("/")
+    public String something() {
+        return "first";
+    }
 //    @RequestMapping("/new_user")
 //    public String newUser() {
 //        return "authorisation_result";
 //    }
 //
-//    @RequestMapping(value = "/add_user", method = RequestMethod.POST)
-//    public String newUser(Model model, @RequestParam String login, String password) {
-//        User user = new User(login,password);
-//        userService.addUser(user);
-////        String result = "Hello  "+login;
-////        model.addAttribute("result", result);
-//        return "login";
-//    }
+@RequestMapping("/add_product")
+public String writing() {
+    return "add_product";
+}
+
+    @RequestMapping(value = "/write_product", method = RequestMethod.POST)
+    public String newUser(Model model, @RequestParam String name, String producer, String measure, float amount, float purchasePrice,float sellingPrice ) {
+        Product product = new Product(name, producer, measure, amount,purchasePrice, sellingPrice);
+        productService.addProduct(product);
+        return "add_product";
+    }
+    @RequestMapping("/supply_product")
+    public String supplyProduct(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+
+        List<Product> products = productService.findProducts();
+
+        model.addAttribute("products", products);
+        return "choose_supply_product";
+    }
+
+    @RequestMapping(value = "/write_supply_product", method = RequestMethod.POST)
+    public String newUser(Model model, @RequestParam Product product, float plusAmount, float newPurchasePrice,float newSellingPrice ) {
+        productService.supplyProduct(product, plusAmount, newPurchasePrice, newSellingPrice);
+        return "write_supply_product";
+    }
+
+
+//
+
+
 //
 //    @RequestMapping(value ="/check_password", method = RequestMethod.POST)
 //    public String checkPassword(Model model, @RequestParam String login, String password) {
@@ -51,20 +71,16 @@ public class MyController {
 //        return "wrong_password";
 //    }
 //
-//    @RequestMapping("/index")
-//    public String index(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
-//        if (page < 0) page = 0;
-//
-//        List<Contact> contacts = contactService
-//                .findAll(new PageRequest(page, ITEMS_PER_PAGE, Sort.Direction.DESC, "id"));
-//
-//        model.addAttribute("groups", contactService.findGroups());
-//        model.addAttribute("contacts", contacts);
-//        model.addAttribute("allPages", getPageCount());
+    @RequestMapping("/send_product")
+    public String sendProduct(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
 
-//        return "index";
-//    }
-//
+        List<Product> products = productService.findProducts();
+
+        model.addAttribute("products", products);
+
+        return "send_product";
+    }
+
 //
 //
 //    @RequestMapping("/group_add_page")

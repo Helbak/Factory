@@ -9,6 +9,20 @@
 </head>
 
 <body>
-<h1>Goooooood</h1>
+<div align="center">
+
+<form action="/add_product" method="GET">
+   <h2> Add new product:</h2>
+    <input type="submit"/>
+</form>
+    <form action="/send_product" method="GET">
+        <h2> Send product:</h2>
+        <input type="submit"/>
+    </form>
+    <form action="/supply_product" method="GET">
+        <h2> Supply product:</h2>
+        <input type="submit"/>
+    </form>
+    </div>
 </body>
 </html>

@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>Factory</groupId>
-    <artifactId>myFactory</artifactId>
+    <artifactId>Factory</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -65,7 +65,7 @@
     </dependencies>
 
     <build>
-        <finalName>Factory</finalName>
+        <finalName>myFactory</finalName>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>

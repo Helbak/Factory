@@ -15,17 +15,20 @@ public class Product {
     private String producer;
     private String measure;
     private float amount;
-    private float price;
-
+    private float purchasePrice;
+    private float sellingPrice;
+    private float costPrice;
     public Product() {
     }
 
-    public Product(String name, String producer, String measure, float amount, float price) {
+    public Product(String name, String producer, String measure, float amount, float purchasePrice, float sellingPrice) {
         this.name = name;
         this.producer = producer;
         this.measure = measure;
         this.amount = amount;
-        this.price = price;
+        this.purchasePrice = purchasePrice;
+        this.sellingPrice = sellingPrice;
+        this.costPrice = purchasePrice;
     }
 
     public long getId() {
@@ -68,12 +71,28 @@ public class Product {
         this.amount = amount;
     }
 
-    public float getPrice() {
-        return price;
+    public float getPurchasePrice() {
+        return purchasePrice;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setPurchasePrice(float purchasePrice) {
+        this.purchasePrice = purchasePrice;
+    }
+
+    public float getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(float sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+
+    public float getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice(float costPrice) {
+        this.costPrice = costPrice;
     }
 
     @Override
@@ -84,7 +103,8 @@ public class Product {
                 ", producer='" + producer + '\'' +
                 ", measure='" + measure + '\'' +
                 ", amount=" + amount +
-                ", price=" + price +
+                ", purchasePrice=" + purchasePrice +
+                ", sellingPrice=" + sellingPrice +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 package code;
 
 import code.domain.Product;
+import code.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -12,7 +13,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 @AllArgsConstructor
 public class Application implements ApplicationRunner {
-
+private ProductService productService;
 
 
     public static void main(String[] args) {
@@ -23,7 +24,8 @@ public class Application implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments arg0) throws Exception {
 
-        Product product = new Product("water", "polyana", "gr", 20, 200);
+        Product product = new Product("water", "polyana", "gr", 20, 200, 220);
+        productService.addProduct(product);
 //        Group group = new Group("Test");
 //        Contact contact;
 //         User user = new User ("login", "password" );
