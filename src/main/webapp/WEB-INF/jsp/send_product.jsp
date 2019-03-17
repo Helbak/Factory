@@ -1,4 +1,4 @@
-p<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -30,7 +30,7 @@ p<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <tr>
             <td></td>
 
-            <td><b>Name</b></td>
+            <td><b>Id</b></td>
             <td><b>Producer</b></td>
             <td><b>Amount</b></td>
             <td><b>Selling Price</b></td>

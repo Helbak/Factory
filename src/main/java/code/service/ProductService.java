@@ -12,4 +12,5 @@ public interface ProductService {
         List<Product> findProducts();
 void newCostPrice(Product product, float plusAmount, float newPurchasePrice,float sellingPrice );
 void newAmount(Product product,float plusAmount);
+Product getProductById(Long id);
 }

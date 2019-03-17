@@ -24,7 +24,7 @@ private ProductService productService;
     @Override
     public void run(ApplicationArguments arg0) throws Exception {
 
-        Product product = new Product("water", "polyana", "gr", 20, 200, 220);
+        Product product = new Product("Water", "Polyana", "gr", 20, 200, 220);
         productService.addProduct(product);
 //        Group group = new Group("Test");
 //        Contact contact;

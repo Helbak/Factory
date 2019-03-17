@@ -1,55 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>send_product</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+
 <body>
-<div align="center">
+<br>
+<br>
 
-    <h2>Choose product</h2>
+<div class="container">
 
 
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
 
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-    <form action="/write_supply_product" method="post">
-        <input type="submit" value="Choose marked">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <td></td>
+               <h2>Supply Product</h2>
 
-                <td><b>Name</b></td>
-                <td><b>Producer</b></td>
-                <td><b>Amount</b></td>
-                <td><b>Selling Price</b></td>
-                <td><b>Amount for Sale</b></td>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <%--<td></td>--%>
+                        <td><b>Id</b></td>
+                        <td><b>Producer</b></td>
+                        <td><b>Plus Amount</b></td>
+                        <td><b>Purchase Price</b></td>
+                        <td><b>Selling Price</b></td>
+                        <td><b>Get</b></td>
 
-            </tr>
-            </thead>
-            <c:forEach items="${products}" var="product">
-                <tr>
-                    <td><input type="checkbox" name="toDelete[]" value="${product.id}" id="checkbox_${product.id}"/></td>
-                    <td>${product.name}</td>
-                    <td>${product.producer}</td>
-                    <td>${product.amount}</td>
-                    <td>${product.sellingPrice}</td>
-                    <td><input type="number" name="amount"></td>
                     </tr>
-            </c:forEach>
-        </table>
-    </form>
+                    </thead>
+                    <c:forEach items="${products}" var="product">
+                        <tr>
+                            <form action="/check_supply_product" method="POST">
+                                <td>${product.id}</td>
+                                <td>${product.name}</td>
+                                <input hidden name="id" value="${product.id}">
+                                <input hidden name="name" value="${product.name}">
+                                <td><input type="number" name="plusAmount"></td>
+                                <td><input type="number" name="purchasePrice"></td>
+                                <td><input type="number" name="sellingPrice"></td>
+
+                            <td>
+                                <input type="submit" value="GET" />
+                            </td>
+                                </form>
+
+                        </tr>
+                    </c:forEach>
+                </table>
 
 
-    <br>
-    <br>
-    <br>
-    <br>
+            </div>
 
-    <form action="/" method="GET">
-        <h2> Done </h2>
-        <input type="submit"/>
-    </form>
-
+        </div>
+    </nav>
 </div>
-
-
-
+<div align="center">
+        <form action="/" method="POST">
+            <input type="submit" value="BACK" />
+        </form>
+</div>
 </body>
 </html>

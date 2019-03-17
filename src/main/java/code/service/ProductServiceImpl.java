@@ -21,6 +21,13 @@ private ProductRepository productRepository;
 
     @Override
     @Transactional
+    public Product getProductById(Long id){
+        Product product = productRepository.getOne(id);
+       return product;
+    }
+
+    @Override
+    @Transactional
     public void supplyProduct(Product product, float plusAmount, float newPurchasePrice,float newSellingPrice){
         product.setSellingPrice(newSellingPrice);
         newAmount(product, plusAmount);

@@ -35,7 +35,7 @@
     <%--</form>--%>
     <form action="/" method="GET">
 
-         <input type="submit" value="EXIT"/>
+         <input type="submit" value="BACK"/>
 
     </form>
 

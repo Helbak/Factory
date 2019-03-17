@@ -16,7 +16,7 @@
     <input type="submit"/>
 </form>
     <form action="/send_product" method="GET">
-        <h2> Send product:</h2>
+        <h2> Sale product:</h2>
         <input type="submit"/>
     </form>
     <form action="/supply_product" method="GET">

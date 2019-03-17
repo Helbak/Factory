@@ -51,11 +51,22 @@ public String writing() {
         model.addAttribute("products", products);
         return "choose_supply_product";
     }
+    @RequestMapping(value = "/check_supply_product", method = RequestMethod.POST)
+    public String checkSupply(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice,Float sellingPrice ) {
+        model.addAttribute("id", id);
+        model.addAttribute("name", name);
+        model.addAttribute("plusAmount", plusAmount);
+        model.addAttribute("newPurchasePrice", purchasePrice);
+        model.addAttribute("newSellingPrice", sellingPrice);
+
+        return "check_supply_product";
+    }
 
     @RequestMapping(value = "/write_supply_product", method = RequestMethod.POST)
-    public String newUser(Model model, @RequestParam Product product, float plusAmount, float newPurchasePrice,float newSellingPrice ) {
+    public String writeSupply(Model model, @RequestParam Long id, Float plusAmount, Float newPurchasePrice,Float newSellingPrice ) {
+        Product product = productService.getProductById(id);
         productService.supplyProduct(product, plusAmount, newPurchasePrice, newSellingPrice);
-        return "write_supply_product";
+        return "choose_supply_product";
     }
 
 
