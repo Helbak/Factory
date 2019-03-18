@@ -24,22 +24,9 @@ private ProductService productService;
     @Override
     public void run(ApplicationArguments arg0) throws Exception {
 
-        Product product = new Product("Water", "Polyana", "gr", 20, 200, 220);
+        Product product = new Product("Water", "Polyana", "gr", 20, 200, 220, 200);
         productService.addProduct(product);
-//        Group group = new Group("Test");
-//        Contact contact;
-//         User user = new User ("login", "password" );
-//
-//        contactService.addGroup(group);
-//        userService.addUser(user);
-//
-//        for (int i = 0; i < 13; i++) {
-//            contact = new Contact(null, "Name" + i, "Surname" + i, "1234567" + i, "user" + i + "@test.com");
-//            contactService.addContact(contact);
-//        }
-//        for (int i = 0; i < 10; i++) {
-//            contact = new Contact(group, "Other" + i, "OtherSurname" + i, "7654321" + i, "user" + i + "@other.com");
-//            contactService.addContact(contact);
-//        }
+        Product product2 = new Product("Phone", "Sony", "item", 20, 200, 220,200);
+        productService.addProduct(product2);
     }
 }

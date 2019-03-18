@@ -39,7 +39,7 @@ public String writing() {
 
     @RequestMapping(value = "/write_product", method = RequestMethod.POST)
     public String newUser(Model model, @RequestParam String name, String producer, String measure, float amount, float purchasePrice,float sellingPrice ) {
-        Product product = new Product(name, producer, measure, amount,purchasePrice, sellingPrice);
+        Product product = new Product(name, producer, measure, amount,purchasePrice, sellingPrice, purchasePrice);
         productService.addProduct(product);
         return "add_product";
     }
@@ -63,10 +63,11 @@ public String writing() {
     }
 
     @RequestMapping(value = "/write_supply_product", method = RequestMethod.POST)
-    public String writeSupply(Model model, @RequestParam Long id, Float plusAmount, Float newPurchasePrice,Float newSellingPrice ) {
-        Product product = productService.getProductById(id);
-        productService.supplyProduct(product, plusAmount, newPurchasePrice, newSellingPrice);
-        return "choose_supply_product";
+    public String writeSupply(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice ) {
+
+        productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
+
+        return "first";
     }
 
 
@@ -82,15 +83,31 @@ public String writing() {
 //        return "wrong_password";
 //    }
 //
-    @RequestMapping("/send_product")
+    @RequestMapping("/sale_product")
     public String sendProduct(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
 
         List<Product> products = productService.findProducts();
 
         model.addAttribute("products", products);
-
-        return "send_product";
+       return "sale_product";
     }
+    @RequestMapping(value = "/check_sale_product", method = RequestMethod.POST)
+    public String checkSale(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
+
+        model.addAttribute("id", id);
+        model.addAttribute("name", name);
+        model.addAttribute("amount", amount);
+        model.addAttribute("sellingPrice", sellingPrice);
+        model.addAttribute("saleAmount", saleAmount);
+       return "check_sale_product";
+    }
+    @RequestMapping(value = "/write_sale_product", method = RequestMethod.POST)
+    public String writeSale(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
+        productService.saleProduct(id, saleAmount);
+
+        return "first";
+    }
+
 
 //
 //

@@ -22,16 +22,22 @@ private ProductRepository productRepository;
     @Override
     @Transactional
     public Product getProductById(Long id){
-        Product product = productRepository.getOne(id);
-       return product;
+        List<Product> products = findProducts();
+
+            for (Product product:products){
+                if (id==product.getId())
+                    return product;
+            }
+       return null;
     }
 
     @Override
     @Transactional
-    public void supplyProduct(Product product, float plusAmount, float newPurchasePrice,float newSellingPrice){
-        product.setSellingPrice(newSellingPrice);
+    public void supplyProduct(Long id, Float plusAmount, Float newPurchasePrice,Float newSellingPrice){
+        Product product = getProductById(id);
+         product.setSellingPrice(newSellingPrice);
         newAmount(product, plusAmount);
-
+newCostPrice(product, plusAmount,newPurchasePrice,newSellingPrice);
     }
     @Override
     @Transactional
@@ -44,7 +50,7 @@ private ProductRepository productRepository;
     public void newCostPrice(Product product, float plusAmount, float newPurchasePrice,float sellingPrice ){
         float oldAmount = product.getAmount();
         float oldCostPrice = product.getCostPrice();
-        product.setCostPrice((oldCostPrice/oldAmount+newPurchasePrice/plusAmount)/(oldAmount+plusAmount));
+        product.setCostPrice((oldCostPrice*oldAmount+newPurchasePrice*plusAmount)/(oldAmount+plusAmount));
     }
 
     @Override
@@ -52,7 +58,12 @@ private ProductRepository productRepository;
     public List<Product> findProducts() {
         return productRepository.findAll();
     }
-
-
+    @Override
+    @Transactional
+   public void saleProduct (long id, Float saleAmount){
+        Product product = getProductById(id);
+        float oldAmount = product.getAmount();
+        product.setAmount(oldAmount-saleAmount);
+    }
 
 }

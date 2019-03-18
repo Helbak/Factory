@@ -21,14 +21,14 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String producer, String measure, float amount, float purchasePrice, float sellingPrice) {
+    public Product(String name, String producer, String measure, float amount, float purchasePrice, float sellingPrice, float costPrice) {
         this.name = name;
         this.producer = producer;
         this.measure = measure;
         this.amount = amount;
         this.purchasePrice = purchasePrice;
         this.sellingPrice = sellingPrice;
-        this.costPrice = purchasePrice;
+        this.costPrice = costPrice;
     }
 
     public long getId() {

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>send_product</title>
+    <title>check_sale_product</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -12,7 +12,7 @@
 <br>
 <br>
 <div align="center">
-<h2>Check. Do you confirm adding..? </h2>
+<h2>Check. Do you confirm sale..? </h2>
     <br>
     <br>
 
@@ -29,9 +29,9 @@
 
                             <td><b>Id</b></td>
                             <td><b>Name</b></td>
-                            <td><b>Plus Amount</b></td>
-                            <td><b>Purchase Price</b></td>
+                            <td><b>Amount</b></td>
                             <td><b>Price for Sale</b></td>
+                            <td><b>Sale Amount</b></td>
 
                         </tr>
                         </thead>
@@ -40,21 +40,20 @@
 
                                 <td>${id}</td>
                                 <td>${name}</td>
-                                <td>${plusAmount}</td>
-                                <td>${newPurchasePrice}</td>
-                                <td>${newSellingPrice}</td>
-
+                                <td>${amount}</td>
+                                <td>${sellingPrice}</td>
+                                <td>${saleAmount}</td>
 
                             </tr>
 
                     </table>
-                    <form action="/write_supply_product" method="POST">
+                    <form action="/write_sale_product" method="POST">
 
                         <input hidden name="id" value="${id}">
                         <input hidden name="name" value="${name}">
-                        <input hidden name="plusAmount" value="${plusAmount}">
-                        <input hidden name="purchasePrice" value="${newPurchasePrice}">
-                        <input hidden name="sellingPrice" value="${newSellingPrice}">
+                        <input hidden name="amount" value="${amount}">
+                        <input hidden name="sellingPrice" value="${sellingPrice}">
+                        <input hidden name="saleAmount" value="${saleAmount}">
 
                             <input type="submit" value="CONFIRM" />
 
@@ -67,7 +66,7 @@
         </nav>
 
             </div>
-    <form action="/supply_product" method="POST">
+    <form action="/sale_product" method="POST">
         <input type="submit" value="BACK" />
     </form>
 </div>

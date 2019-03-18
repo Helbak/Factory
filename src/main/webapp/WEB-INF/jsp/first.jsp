@@ -15,7 +15,7 @@
    <h2> Add new product:</h2>
     <input type="submit"/>
 </form>
-    <form action="/send_product" method="GET">
+    <form action="/sale_product" method="GET">
         <h2> Sale product:</h2>
         <input type="submit"/>
     </form>
