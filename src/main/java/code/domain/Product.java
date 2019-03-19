@@ -1,6 +1,8 @@
 package code.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Products")
@@ -18,6 +20,11 @@ public class Product {
     private float purchasePrice;
     private float sellingPrice;
     private float costPrice;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<IncomingInvoice> incomingInvoices= new ArrayList<IncomingInvoice>();
+
+
     public Product() {
     }
 
@@ -93,6 +100,14 @@ public class Product {
 
     public void setCostPrice(float costPrice) {
         this.costPrice = costPrice;
+    }
+
+    public List<IncomingInvoice> getIncomingInvoices() {
+        return incomingInvoices;
+    }
+
+    public void setIncomingInvoices(List<IncomingInvoice> incomingInvoices) {
+        this.incomingInvoices = incomingInvoices;
     }
 
     @Override
