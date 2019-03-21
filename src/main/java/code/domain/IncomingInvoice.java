@@ -16,15 +16,17 @@ public class IncomingInvoice {
 
     private Date data;
     private float sellingPrice;
+    private float purchasePrice;
     private float plusAmount;
 
     public IncomingInvoice() {
     }
 
-    public IncomingInvoice(Product product, Date data, float sellingPrice, float plusAmount) {
+    public IncomingInvoice(Product product, Date data, float sellingPrice, float purchasePrice, float plusAmount) {
         this.product = product;
         this.data = data;
         this.sellingPrice = sellingPrice;
+        this.purchasePrice = purchasePrice;
         this.plusAmount = plusAmount;
     }
 
@@ -66,5 +68,13 @@ public class IncomingInvoice {
 
     public void setPlusAmount(float plusAmount) {
         this.plusAmount = plusAmount;
+    }
+
+    public float getPurchasePrice() {
+        return purchasePrice;
+    }
+
+    public void setPurchasePrice(float purchasePrice) {
+        this.purchasePrice = purchasePrice;
     }
 }

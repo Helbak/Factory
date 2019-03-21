@@ -16,9 +16,17 @@ private ProductRepository productRepository;
     @Override
     @Transactional
     public void addProduct(Product product){
+
         productRepository.save(product);
     }
 
+    @Override
+    @Transactional
+    public void supplyProductFromInvoice(Product product, float sellingPrice, float purchasePrice, float plusAmount ){
+        product.setSellingPrice(sellingPrice);
+        newAmount(product, plusAmount);
+        newCostPrice(product, plusAmount,purchasePrice, sellingPrice);
+    }
     @Override
     @Transactional
     public Product getProductById(Long id){

@@ -9,6 +9,7 @@ public interface ProductService {
 
         void addProduct(Product product);
         void supplyProduct(Long id, Float plusAmount, Float newPurchasePrice,Float newSellingPrice);
+        void supplyProductFromInvoice(Product product, float sellingPrice, float purchasePrice, float plusAmount );
         List<Product> findProducts();
 void newCostPrice(Product product, float plusAmount, float newPurchasePrice,float sellingPrice );
 void newAmount(Product product,float plusAmount);

@@ -15,6 +15,10 @@
    <h2> Add new product:</h2>
     <input type="submit"/>
 </form>
+    <form action="/incoming_invoice" method="GET">
+        <h2> Incoming Invoice:</h2>
+        <input type="submit"/>
+    </form>
     <form action="/sale_product" method="GET">
         <h2> Sale product:</h2>
         <input type="submit"/>

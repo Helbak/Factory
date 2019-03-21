@@ -1,6 +1,8 @@
 package code.web;
 
+import code.domain.IncomingInvoice;
 import code.domain.Product;
+import code.service.IncomingInvoiceService;
 import code.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -16,12 +18,14 @@ import org.springframework.web.bind.annotation.*;
 //import prog.service.ContactService;
 //import prog.service.UserService;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class MyController {
 private ProductService productService;
+private IncomingInvoiceService incomingInvoiceService;
 
     @RequestMapping("/")
     public String something() {
@@ -51,6 +55,16 @@ public String writing() {
         model.addAttribute("products", products);
         return "choose_supply_product";
     }
+
+    @RequestMapping("/incoming_invoice")
+    public String incomingInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+
+        List<Product> products = productService.findProducts();
+
+        model.addAttribute("products", products);
+        return "choose_incoming_invoice";
+    }
+
     @RequestMapping(value = "/check_supply_product", method = RequestMethod.POST)
     public String checkSupply(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice,Float sellingPrice ) {
         model.addAttribute("id", id);
@@ -62,6 +76,17 @@ public String writing() {
         return "check_supply_product";
     }
 
+    @RequestMapping(value = "/check_incoming_invoice", method = RequestMethod.POST)
+    public String checkIncomingInvoice(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice,Float sellingPrice ) {
+        model.addAttribute("id", id);
+        model.addAttribute("name", name);
+        model.addAttribute("plusAmount", plusAmount);
+        model.addAttribute("newPurchasePrice", purchasePrice);
+        model.addAttribute("newSellingPrice", sellingPrice);
+
+        return "check_incoming_invoices";
+    }
+
     @RequestMapping(value = "/write_supply_product", method = RequestMethod.POST)
     public String writeSupply(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice ) {
 
@@ -69,7 +94,15 @@ public String writing() {
 
         return "first";
     }
+    @RequestMapping(value = "/write_incoming_invoice", method = RequestMethod.POST)
+    public String writeIncomingInvoice(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice ) {
+Product product = productService.getProductById(id);
+        IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), sellingPrice, purchasePrice, plusAmount);
+        incomingInvoiceService.addIncomingInvoice(incomingInvoice);
+        productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
 
+        return "first";
+    }
 
 //
 
