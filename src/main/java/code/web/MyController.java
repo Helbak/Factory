@@ -2,8 +2,10 @@ package code.web;
 
 import code.domain.IncomingInvoice;
 import code.domain.Product;
+import code.domain.SalesInvoice;
 import code.service.IncomingInvoiceService;
 import code.service.ProductService;
+import code.service.SalesInvoiceService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -26,6 +28,7 @@ import java.util.List;
 public class MyController {
 private ProductService productService;
 private IncomingInvoiceService incomingInvoiceService;
+private SalesInvoiceService salesInvoiceService;
 
     @RequestMapping("/")
     public String something() {
@@ -63,6 +66,39 @@ public String writing() {
 
         model.addAttribute("products", products);
         return "choose_incoming_invoice";
+    }
+
+    @RequestMapping("/sales_invoice")
+    public String salesInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+
+        List<Product> products = productService.findProducts();
+
+        model.addAttribute("products", products);
+        return "choose_sales_invoice";
+    }
+    @RequestMapping("/check_sales_invoice")
+    public String checkSalesInvoice(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
+
+        model.addAttribute("id", id);
+        model.addAttribute("name", name);
+        model.addAttribute("amount", amount);
+        model.addAttribute("sellingPrice", sellingPrice);
+        model.addAttribute("saleAmount", saleAmount);
+        return "check_sales_invoice";
+    }
+    @RequestMapping(value = "/write_sales_invoice", method = RequestMethod.POST)
+    public String writeSalesInvoice(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
+//        productService.saleProduct(id, saleAmount);
+
+
+        Product product = productService.getProductById(id);
+        SalesInvoice salesInvoice = new SalesInvoice(product, new Date(), saleAmount);
+        salesInvoiceService.addSalesInvoice(salesInvoice);
+//        productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
+
+
+
+        return "first";
     }
 
     @RequestMapping(value = "/check_supply_product", method = RequestMethod.POST)

@@ -23,7 +23,8 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<IncomingInvoice> incomingInvoices= new ArrayList<IncomingInvoice>();
-
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<SalesInvoice> salesInvoices= new ArrayList<SalesInvoice>();
 
     public Product() {
     }
