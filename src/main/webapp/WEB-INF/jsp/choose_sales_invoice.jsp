@@ -12,6 +12,9 @@
 <br>
 <br>
 
+<h2>Cash Balance</h2>
+
+<h2>${cash}</h2>
 <div class="container">
 
 

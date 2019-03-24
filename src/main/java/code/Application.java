@@ -1,7 +1,9 @@
 package code;
 
+import code.domain.CashBalance;
 import code.domain.IncomingInvoice;
 import code.domain.Product;
+import code.service.CashBalanceSevice;
 import code.service.IncomingInvoiceService;
 import code.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.Date;
 public class Application implements ApplicationRunner {
 private ProductService productService;
 private IncomingInvoiceService incomingInvoiceService;
+private CashBalanceSevice cashBalanceSevice;
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
@@ -32,8 +35,9 @@ private IncomingInvoiceService incomingInvoiceService;
         productService.addProduct(product);
         Product product2 = new Product("Phone", "Sony", "item", 20, 200, 220,200);
         productService.addProduct(product2);
-
-        IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), 200,250,10000);
+        CashBalance cashBalance = new CashBalance(new Date(), "receiveCash", 99999, 100000);
+        cashBalanceSevice.manualAddCashBalance(cashBalance);
+        IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), 200,250,100);
         incomingInvoiceService.addIncomingInvoice(incomingInvoice);
     }
 }

@@ -1,8 +1,10 @@
 package code.web;
 
+import code.domain.CashBalance;
 import code.domain.IncomingInvoice;
 import code.domain.Product;
 import code.domain.SalesInvoice;
+import code.service.CashBalanceSevice;
 import code.service.IncomingInvoiceService;
 import code.service.ProductService;
 import code.service.SalesInvoiceService;
@@ -14,11 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-//import prog.domain.Contact;
-//import prog.domain.Group;
-//import prog.domain.User;
-//import prog.service.ContactService;
-//import prog.service.UserService;
+
 
 import java.util.Date;
 import java.util.List;
@@ -29,16 +27,15 @@ public class MyController {
 private ProductService productService;
 private IncomingInvoiceService incomingInvoiceService;
 private SalesInvoiceService salesInvoiceService;
+private CashBalanceSevice cashBalanceSevice;
+
 
     @RequestMapping("/")
-    public String something() {
-        return "first";
-    }
-//    @RequestMapping("/new_user")
-//    public String newUser() {
-//        return "authorisation_result";
-//    }
-//
+    public String something(Model model) {
+        float cash = cashBalanceSevice.getLastBalance();
+        model.addAttribute("cash", cash);
+        return "first"; }
+
 @RequestMapping("/add_product")
 public String writing() {
     return "add_product";
@@ -50,29 +47,24 @@ public String writing() {
         productService.addProduct(product);
         return "add_product";
     }
-    @RequestMapping("/supply_product")
-    public String supplyProduct(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+//    @RequestMapping("/supply_product")
+//    public String supplyProduct(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+//
+//        List<Product> products = productService.findProducts();
+//
+//        model.addAttribute("products", products);
+//        return "choose_supply_product";
+//    }
 
-        List<Product> products = productService.findProducts();
 
-        model.addAttribute("products", products);
-        return "choose_supply_product";
-    }
-
-    @RequestMapping("/incoming_invoice")
-    public String incomingInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
-
-        List<Product> products = productService.findProducts();
-
-        model.addAttribute("products", products);
-        return "choose_incoming_invoice";
-    }
 
     @RequestMapping("/sales_invoice")
     public String salesInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
 
         List<Product> products = productService.findProducts();
 
+        float cash = cashBalanceSevice.getLastBalance();
+model.addAttribute("cash", cash);
         model.addAttribute("products", products);
         return "choose_sales_invoice";
     }
@@ -101,17 +93,25 @@ public String writing() {
         return "first";
     }
 
-    @RequestMapping(value = "/check_supply_product", method = RequestMethod.POST)
-    public String checkSupply(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice,Float sellingPrice ) {
-        model.addAttribute("id", id);
-        model.addAttribute("name", name);
-        model.addAttribute("plusAmount", plusAmount);
-        model.addAttribute("newPurchasePrice", purchasePrice);
-        model.addAttribute("newSellingPrice", sellingPrice);
+//    @RequestMapping(value = "/check_supply_product", method = RequestMethod.POST)
+//    public String checkSupply(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice,Float sellingPrice ) {
+//        model.addAttribute("id", id);
+//        model.addAttribute("name", name);
+//        model.addAttribute("plusAmount", plusAmount);
+//        model.addAttribute("newPurchasePrice", purchasePrice);
+//        model.addAttribute("newSellingPrice", sellingPrice);
+//
+//        return "check_supply_product";
+//    }
+@RequestMapping("/incoming_invoice")
+public String incomingInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
 
-        return "check_supply_product";
-    }
-
+    List<Product> products = productService.findProducts();
+    float cash = cashBalanceSevice.getLastBalance();
+    model.addAttribute("cash", cash);
+    model.addAttribute("products", products);
+    return "choose_incoming_invoice";
+}
     @RequestMapping(value = "/check_incoming_invoice", method = RequestMethod.POST)
     public String checkIncomingInvoice(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice,Float sellingPrice ) {
         model.addAttribute("id", id);
@@ -123,13 +123,13 @@ public String writing() {
         return "check_incoming_invoices";
     }
 
-    @RequestMapping(value = "/write_supply_product", method = RequestMethod.POST)
-    public String writeSupply(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice ) {
-
-        productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
-
-        return "first";
-    }
+//    @RequestMapping(value = "/write_supply_product", method = RequestMethod.POST)
+//    public String writeSupply(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice ) {
+//
+//        productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
+//
+//        return "first";
+//    }
     @RequestMapping(value = "/write_incoming_invoice", method = RequestMethod.POST)
     public String writeIncomingInvoice(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice ) {
 Product product = productService.getProductById(id);
@@ -152,30 +152,30 @@ Product product = productService.getProductById(id);
 //        return "wrong_password";
 //    }
 //
-    @RequestMapping("/sale_product")
-    public String sendProduct(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
-
-        List<Product> products = productService.findProducts();
-
-        model.addAttribute("products", products);
-       return "sale_product";
-    }
-    @RequestMapping(value = "/check_sale_product", method = RequestMethod.POST)
-    public String checkSale(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
-
-        model.addAttribute("id", id);
-        model.addAttribute("name", name);
-        model.addAttribute("amount", amount);
-        model.addAttribute("sellingPrice", sellingPrice);
-        model.addAttribute("saleAmount", saleAmount);
-       return "check_sale_product";
-    }
-    @RequestMapping(value = "/write_sale_product", method = RequestMethod.POST)
-    public String writeSale(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
-        productService.saleProduct(id, saleAmount);
-
-        return "first";
-    }
+//    @RequestMapping("/sale_product")
+//    public String sendProduct(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+//
+//        List<Product> products = productService.findProducts();
+//
+//        model.addAttribute("products", products);
+//       return "sale_product";
+//    }
+//    @RequestMapping(value = "/check_sale_product", method = RequestMethod.POST)
+//    public String checkSale(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
+//
+//        model.addAttribute("id", id);
+//        model.addAttribute("name", name);
+//        model.addAttribute("amount", amount);
+//        model.addAttribute("sellingPrice", sellingPrice);
+//        model.addAttribute("saleAmount", saleAmount);
+//       return "check_sale_product";
+//    }
+//    @RequestMapping(value = "/write_sale_product", method = RequestMethod.POST)
+//    public String writeSale(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
+//        productService.saleProduct(id, saleAmount);
+//
+//        return "first";
+//    }
 
 
 //
