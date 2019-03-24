@@ -86,24 +86,13 @@ model.addAttribute("cash", cash);
         Product product = productService.getProductById(id);
         SalesInvoice salesInvoice = new SalesInvoice(product, new Date(), saleAmount);
         salesInvoiceService.addSalesInvoice(salesInvoice);
-//        productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
-
-
+        float cash = cashBalanceSevice.getLastBalance();
+        model.addAttribute("cash", cash);
 
         return "first";
     }
 
-//    @RequestMapping(value = "/check_supply_product", method = RequestMethod.POST)
-//    public String checkSupply(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice,Float sellingPrice ) {
-//        model.addAttribute("id", id);
-//        model.addAttribute("name", name);
-//        model.addAttribute("plusAmount", plusAmount);
-//        model.addAttribute("newPurchasePrice", purchasePrice);
-//        model.addAttribute("newSellingPrice", sellingPrice);
-//
-//        return "check_supply_product";
-//    }
-@RequestMapping("/incoming_invoice")
+    @RequestMapping("/incoming_invoice")
 public String incomingInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
 
     List<Product> products = productService.findProducts();
@@ -136,162 +125,45 @@ Product product = productService.getProductById(id);
         IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), sellingPrice, purchasePrice, plusAmount);
         incomingInvoiceService.addIncomingInvoice(incomingInvoice);
         productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
-
+        float cash = cashBalanceSevice.getLastBalance();
+        model.addAttribute("cash", cash);
         return "first";
     }
 
-//
+@RequestMapping("/list_cashBill")
+public String listCashBill(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+List<CashBalance> cashBalances = cashBalanceSevice.findCashBalance();
+    model.addAttribute("cashBalances", cashBalances);
+    float cash = cashBalanceSevice.getLastBalance();
+    model.addAttribute("cash", cash);
+    return "list_cashBill";
+}
 
+    @RequestMapping("/list_product")
+    public String listProduct(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+        List<Product> products = productService.findProducts();
+        float sumProduct = productService.getsumProduct();
+        model.addAttribute("sumProduct", sumProduct);
+        model.addAttribute("products", products);
+        return "list_product";
+    }
 
-//
-//    @RequestMapping(value ="/check_password", method = RequestMethod.POST)
-//    public String checkPassword(Model model, @RequestParam String login, String password) {
-//       if (userService.checkPassword(login, password)==true){
-//        return "password_true";}
-//
-//        return "wrong_password";
-//    }
-//
-//    @RequestMapping("/sale_product")
-//    public String sendProduct(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
-//
-//        List<Product> products = productService.findProducts();
-//
-//        model.addAttribute("products", products);
-//       return "sale_product";
-//    }
-//    @RequestMapping(value = "/check_sale_product", method = RequestMethod.POST)
-//    public String checkSale(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
-//
-//        model.addAttribute("id", id);
-//        model.addAttribute("name", name);
-//        model.addAttribute("amount", amount);
-//        model.addAttribute("sellingPrice", sellingPrice);
-//        model.addAttribute("saleAmount", saleAmount);
-//       return "check_sale_product";
-//    }
-//    @RequestMapping(value = "/write_sale_product", method = RequestMethod.POST)
-//    public String writeSale(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
-//        productService.saleProduct(id, saleAmount);
-//
-//        return "first";
-//    }
+    @RequestMapping("/list_sales_invoice")
+    public String listSalesInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+        List<SalesInvoice> salesInvoices = salesInvoiceService.findSalesInvoice();
+        float sumSales = salesInvoiceService.getsumSales();
+        model.addAttribute("sumSales", sumSales);
+        model.addAttribute("salesInvoices", salesInvoices);
+        return "/list_sales_invoice";
+    }
 
+    @RequestMapping("/list_incoming_invoice")
+    public String listIncomingInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+        List<IncomingInvoice> incomingInvoices = incomingInvoiceService.findIncomingInvoice();
+        float sumBuying = incomingInvoiceService.getsumBuying();
+        model.addAttribute("sumBuying", sumBuying);
+        model.addAttribute("incomingInvoices", incomingInvoices);
+        return "/list_incoming_invoice";
+    }
 
-//
-//
-//    @RequestMapping("/group_add_page")
-//    public String groupAddPage() {
-//
-//        return "group_add_page";
-//    }
-//
-//    @RequestMapping("/group/{id}")
-//    public String listGroup(
-//            @PathVariable(value = "id") long groupId,
-//            @RequestParam(required = false, defaultValue = "0") Integer page,
-//            Model model) {
-//        Group group = (groupId != DEFAULT_GROUP_ID)
-//                ? contactService.findGroup(groupId).orElse(new Group())
-//                : null;
-//        if (page < 0) page = 0;
-//
-//        List<Contact> contacts = contactService
-//                .findByGroup(group, new PageRequest(page, ITEMS_PER_PAGE, Sort.Direction.DESC, "id"));
-//
-//        model.addAttribute("groups", contactService.findGroups());
-//        model.addAttribute("contacts", contacts);
-//        model.addAttribute("byGroupPages", getPageCount(group));
-//        model.addAttribute("groupId", groupId);
-//
-//        return "index";
-//    }
-//
-//    @RequestMapping(value = "/search", method = RequestMethod.POST)
-//    public String search(@RequestParam String pattern, Model model) {
-//        model.addAttribute("groups", contactService.findGroups());
-//        model.addAttribute("contacts", contactService.findByPattern(pattern, null));
-//
-//        return "index";
-//    }
-//
-//    @RequestMapping(value = "/contact/delete", method = RequestMethod.POST)
-//    public ResponseEntity<Void> delete(@RequestParam(value = "toDelete[]", required = false) long[] toDelete) {
-//        if (toDelete != null && toDelete.length > 0)
-//            contactService.deleteContacts(toDelete);
-//
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-//
-//    @RequestMapping("/contact_add_page")
-//    public String contactAddPage(Model model) {
-//        model.addAttribute("groups", contactService.findGroups());
-//        return "contact_add_page";
-//    }
-//    @RequestMapping(value = "/contact/add", method = RequestMethod.POST)
-//    public String contactAdd(@RequestParam(value = "group") long groupId,
-//                             @RequestParam String name,
-//                             @RequestParam String surname,
-//                             @RequestParam String phone,
-//                             @RequestParam String email) {
-//        Group group = (groupId != DEFAULT_GROUP_ID)
-//                ? contactService.findGroup(groupId).orElse(new Group())
-//                : null;
-//
-//        Contact contact = new Contact(group, name, surname, phone, email);
-//        contactService.addContact(contact);
-//
-//        return "redirect:/";
-//    }
-//
-//    @RequestMapping(value = "/group/add", method = RequestMethod.POST)
-//    public String groupAdd(@RequestParam String name) {
-//        contactService.addGroup(new Group(name));
-//        return "redirect:/";
-//    }
-//
-//    @RequestMapping(value = "/contact_edit_page", method = RequestMethod.POST)
-//    public String contactEditPage(Model model, @RequestParam(value = "itemId", required = true) long contactId) {
-//        model.addAttribute("contact", contactService.findById(contactId));
-//        model.addAttribute("groups", contactService.findGroups());
-//        return "contact_edit_page";
-////        return "group_add_page";
-//    }
-//
-//    @RequestMapping(value = "/contact/edit", method = RequestMethod.POST)
-//    public String contactEdit(@RequestParam(name = "userId") long userId,
-//                              @RequestParam(name = "group") long groupId,
-//                              @RequestParam String name,
-//                              @RequestParam String surname,
-//                              @RequestParam String phone,
-//                              @RequestParam String email) {
-//        Group group = (groupId != DEFAULT_GROUP_ID)
-//                ? contactService.findGroup(groupId).orElse(new Group())
-//                : null;
-//        Contact contact = contactService.findById(userId);
-//        contact.setGroup(group);
-//        contact.setName(name);
-//        contact.setSurname(surname);
-//        contact.setPhone(phone);
-//        contact.setEmail(email);
-//        contactService.addContact(contact);
-//        return "redirect:/";
-////   return "/";
-//    }
-//
-//
-//    @ExceptionHandler(Exception.class)
-//    public String error() {
-//        return "error";
-//    }
-//
-//    private long getPageCount() {
-//        long totalCount = contactService.count();
-//        return (totalCount / ITEMS_PER_PAGE) + ((totalCount % ITEMS_PER_PAGE > 0) ? 1 : 0);
-//    }
-//
-//    private long getPageCount(Group group) {
-//        long totalCount = contactService.countByGroup(group);
-//        return (totalCount / ITEMS_PER_PAGE) + ((totalCount % ITEMS_PER_PAGE > 0) ? 1 : 0);
-//    }
 }

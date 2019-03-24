@@ -8,4 +8,6 @@ public interface IncomingInvoiceService {
     void addIncomingInvoice(IncomingInvoice incomingInvoice);
     List<IncomingInvoice> findIncomingInvoice ();
     float getSumOfInvoice (IncomingInvoice incomingInvoice);
+    float getsumBuying();
+
 }

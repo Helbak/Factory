@@ -12,7 +12,9 @@
 <h5>Cash Balance</h5>
 
 <h4>${cash}</h4>
-
+<form action="/list_cashBill" method="GET">
+    <input type="submit" value="LIST"/>
+</form>
 <div align="center">
     <table border = "3">
         <div align="center">
@@ -20,27 +22,42 @@
         <tr >
          <td>
 <form action="/add_product" method="GET">
-   <h2>  Add new product:  </h2>
+   <h2>  Add new product  </h2>
     <div align="center">
     <input type="submit" value="ADD"/>
     </div>
 </form>
+             <form action="/list_product" method="GET">
+                  <div align="center">
+                     <input type="submit" value="LIST"/>
+                  </div>
+             </form>
          </td>
             <td>
             <form action="/sales_invoice" method="GET">
-        <h2>   Sale Product:  </h2>
+        <h2>   Sales Invoice  </h2>
                 <div align="center">
         <input type="submit" value="SALE"/>
                 </div>
     </form>
+                <form action="/list_sales_invoice" method="GET">
+                    <div align="center">
+                        <input type="submit" value="LIST"/>
+                    </div>
+                </form>
             </td>
             <td>
             <form action="/incoming_invoice" method="GET">
-        <h2> Buy Product  :</h2>
+        <h2> Incoming Invoice  </h2>
                 <div align="center">
         <input type="submit" value="BUY"/>
                 </div>
     </form>
+                <form action="/list_incoming_invoice" method="GET">
+                    <div align="center">
+                        <input type="submit" value="LIST"/>
+                    </div>
+                </form>
             </td>
 
         </tr>
@@ -50,9 +67,7 @@
             <table border = "3">
                 <div align="center">
                     <br>
-                    <br>
-                    <br>
-                    <br>
+
 <h1>PRODUCING</h1>
                     <tr >
                         <td>
@@ -62,6 +77,7 @@
                                     <input type="submit" value="ADD"/>
                                 </div>
                             </form>
+
                         </td>
 
                         <td>

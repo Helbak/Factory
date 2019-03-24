@@ -15,4 +15,5 @@ void newCostPrice(Product product, float plusAmount, float newPurchasePrice,floa
 void newAmount(Product product,float plusAmount);
 Product getProductById(Long id);
 void saleProduct (long id, Float saleAmount);
+float getsumProduct();
 }

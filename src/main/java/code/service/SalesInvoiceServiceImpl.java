@@ -22,10 +22,6 @@ public class SalesInvoiceServiceImpl implements SalesInvoiceService{
         float sumOfInvoice = getSumOfInvoice(salesInvoice);
 
         cashBalanceSevice.addCashBalance(new Date(), "receiveCash", salesInvoice.getId(), sumOfInvoice);
-
-
-
-
         salesInvoiceRepository.save(salesInvoice);
         productService.saleProduct(salesInvoice.getProduct().getId(), salesInvoice.getSalesAmount());
     }
@@ -41,4 +37,15 @@ public class SalesInvoiceServiceImpl implements SalesInvoiceService{
         float sumOfInvoice = salesInvoice.getSalesAmount() *salesInvoice.getProduct().getSellingPrice();
         return sumOfInvoice;
     }
+    @Override
+    @Transactional
+    public float getsumSales(){
+        List<SalesInvoice> salesInvoices = findSalesInvoice();
+        float sumSales=0;
+        for(int i=0; i<salesInvoices.size(); i++) {
+            sumSales =sumSales+ salesInvoices.get(i).getSalesAmount()  * salesInvoices.get(i).getProduct().getSellingPrice();
+        }
+        return sumSales;
+    }
+
 }

@@ -73,5 +73,14 @@ newCostPrice(product, plusAmount,newPurchasePrice,newSellingPrice);
         float oldAmount = product.getAmount();
         product.setAmount(oldAmount-saleAmount);
     }
-
+    @Override
+    @Transactional
+    public float getsumProduct(){
+        List<Product> products = findProducts();
+        float sumProduct=0;
+        for(int i=0; i<products.size(); i++) {
+           sumProduct =+ products.get(i).getCostPrice() * products.get(i).getAmount();
+        }
+        return sumProduct;
+    }
 }
