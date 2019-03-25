@@ -18,7 +18,7 @@
 </form>
 <br>
 
-<h5>Total Profit</h5>
+<h5>Total Profit Wow</h5>
 <h4>${profit}</h4>
 
 <div align="center">
