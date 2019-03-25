@@ -27,7 +27,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        (Product product, Date data, float sellingPrice, float purchasePrice, float plusAmount)
+
                         <td><b>Id</b></td>
                         <td><b>Name</b></td>
                         <td><b>Data</b></td>

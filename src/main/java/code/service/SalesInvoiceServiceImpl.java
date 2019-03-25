@@ -14,16 +14,20 @@ import java.util.List;
 public class SalesInvoiceServiceImpl implements SalesInvoiceService{
     private SalesInvoiceRepository salesInvoiceRepository;
     private ProductService productService;
-    private CashBalanceSevice cashBalanceSevice;
+    private CashBalanceService cashBalanceService;
+    private ProfitService profitService;
     @Override
     @Transactional
     public void addSalesInvoice(SalesInvoice salesInvoice){
 
         float sumOfInvoice = getSumOfInvoice(salesInvoice);
-
-        cashBalanceSevice.addCashBalance(new Date(), "receiveCash", salesInvoice.getId(), sumOfInvoice);
+        Date data = new Date();
+        cashBalanceService.addCashBalance(data, "receiveCash", salesInvoice.getId(), sumOfInvoice);
+        float oneProfit = salesInvoice.getSalesAmount()*(salesInvoice.getProduct().getSellingPrice()-salesInvoice.getProduct().getCostPrice());
+        profitService.addProfit(data,"receiveCash",salesInvoice.getId(), oneProfit);
         salesInvoiceRepository.save(salesInvoice);
         productService.saleProduct(salesInvoice.getProduct().getId(), salesInvoice.getSalesAmount());
+
     }
     @Override
     @Transactional

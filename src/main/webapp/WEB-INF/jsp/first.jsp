@@ -9,18 +9,24 @@
 </head>
 
 <body>
-<h5>Cash Balance</h5>
 
+       <h5>Cash Balance</h5>
 <h4>${cash}</h4>
+
 <form action="/list_cashBill" method="GET">
     <input type="submit" value="LIST"/>
 </form>
+<br>
+
+<h5>Total Profit</h5>
+<h4>${profit}</h4>
+
 <div align="center">
     <table border = "3">
         <div align="center">
-            <h1>TRAIDING</h1>
+            <tr border = "3"><h1 >TRAIDING</h1></tr>
         <tr >
-         <td>
+         <td border = "3">
 <form action="/add_product" method="GET">
    <h2>  Add new product  </h2>
     <div align="center">
@@ -33,7 +39,7 @@
                   </div>
              </form>
          </td>
-            <td>
+            <td border = "3">
             <form action="/sales_invoice" method="GET">
         <h2>   Sales Invoice  </h2>
                 <div align="center">
@@ -62,15 +68,16 @@
 
         </tr>
 
-
-
-            <table border = "3">
+        </div>
+    </table>
+<table border = "3">
+            <tr border = "3">
                 <div align="center">
                     <br>
 
-<h1>PRODUCING</h1>
+<tr border = "3"><h1>PRODUCING</h1></tr>
                     <tr >
-                        <td>
+                        <td border = "3">
                             <form action="/add_raw" method="GET">
                                 <h2>  Add new raw material:  </h2>
                                 <div align="center">
@@ -108,10 +115,9 @@
                         </td>
 
                     </tr>
+</table>
 
-
-                </div>
-    </table>
     </div>
+
 </body>
 </html>

@@ -22,13 +22,13 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-               <h2>Invoices</h2>
+               <h2>Cash Receipts</h2>
 
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <%--<td></td>--%>
-                        <td><b>Id</b></td>
+                        <td><b>Id Receipts</b></td>
                         <td><b>Data</b></td>
                         <td><b>Id Invoice</b></td>
                         <td><b>Pay / Receive</b></td>

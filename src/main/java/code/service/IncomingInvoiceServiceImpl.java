@@ -2,12 +2,10 @@ package code.service;
 
 import code.dao.IncomingInvoiceRepository;
 import code.domain.IncomingInvoice;
-import code.domain.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Transient;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +14,7 @@ import java.util.List;
 public class IncomingInvoiceServiceImpl implements IncomingInvoiceService{
     private IncomingInvoiceRepository incomingInvoiceRepository;
 private ProductService productService;
-private CashBalanceSevice cashBalanceSevice;
+private CashBalanceService cashBalanceService;
 
     @Override
     @Transactional
@@ -26,7 +24,7 @@ private CashBalanceSevice cashBalanceSevice;
        productService.supplyProductFromInvoice(incomingInvoice.getProduct() , incomingInvoice.getSellingPrice(), incomingInvoice.getPurchasePrice(), incomingInvoice.getPlusAmount());
         float sumOfInvoice = - getSumOfInvoice(incomingInvoice);
 
-       cashBalanceSevice.addCashBalance(new Date(), "payCash", incomingInvoice.getId(), sumOfInvoice);
+       cashBalanceService.addCashBalance(new Date(), "payCash", incomingInvoice.getId(), sumOfInvoice);
 
 
     }

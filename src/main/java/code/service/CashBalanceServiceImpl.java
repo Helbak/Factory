@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class CashBalanceServiceImpl implements CashBalanceSevice{
+public class CashBalanceServiceImpl implements CashBalanceService {
     private CashBalanceRepository cashBalanceRepository;
     @Override
     @Transactional

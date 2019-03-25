@@ -4,15 +4,8 @@ import code.domain.CashBalance;
 import code.domain.IncomingInvoice;
 import code.domain.Product;
 import code.domain.SalesInvoice;
-import code.service.CashBalanceSevice;
-import code.service.IncomingInvoiceService;
-import code.service.ProductService;
-import code.service.SalesInvoiceService;
+import code.service.*;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +20,15 @@ public class MyController {
 private ProductService productService;
 private IncomingInvoiceService incomingInvoiceService;
 private SalesInvoiceService salesInvoiceService;
-private CashBalanceSevice cashBalanceSevice;
-
+private CashBalanceService cashBalanceService;
+private ProfitService profitService;
 
     @RequestMapping("/")
     public String something(Model model) {
-        float cash = cashBalanceSevice.getLastBalance();
+        float cash = cashBalanceService.getLastBalance();
+        float profit = profitService.getLastTotalProfit();
         model.addAttribute("cash", cash);
+        model.addAttribute("profit", profit);
         return "first"; }
 
 @RequestMapping("/add_product")
@@ -63,7 +58,7 @@ public String writing() {
 
         List<Product> products = productService.findProducts();
 
-        float cash = cashBalanceSevice.getLastBalance();
+        float cash = cashBalanceService.getLastBalance();
 model.addAttribute("cash", cash);
         model.addAttribute("products", products);
         return "choose_sales_invoice";
@@ -86,9 +81,10 @@ model.addAttribute("cash", cash);
         Product product = productService.getProductById(id);
         SalesInvoice salesInvoice = new SalesInvoice(product, new Date(), saleAmount);
         salesInvoiceService.addSalesInvoice(salesInvoice);
-        float cash = cashBalanceSevice.getLastBalance();
+        float cash = cashBalanceService.getLastBalance();
         model.addAttribute("cash", cash);
-
+        float profit = profitService.getLastTotalProfit();
+        model.addAttribute("profit", profit);
         return "first";
     }
 
@@ -96,7 +92,7 @@ model.addAttribute("cash", cash);
 public String incomingInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
 
     List<Product> products = productService.findProducts();
-    float cash = cashBalanceSevice.getLastBalance();
+    float cash = cashBalanceService.getLastBalance();
     model.addAttribute("cash", cash);
     model.addAttribute("products", products);
     return "choose_incoming_invoice";
@@ -125,16 +121,18 @@ Product product = productService.getProductById(id);
         IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), sellingPrice, purchasePrice, plusAmount);
         incomingInvoiceService.addIncomingInvoice(incomingInvoice);
         productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
-        float cash = cashBalanceSevice.getLastBalance();
+        float cash = cashBalanceService.getLastBalance();
         model.addAttribute("cash", cash);
+        float profit = profitService.getLastTotalProfit();
+        model.addAttribute("profit", profit);
         return "first";
     }
 
 @RequestMapping("/list_cashBill")
 public String listCashBill(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
-List<CashBalance> cashBalances = cashBalanceSevice.findCashBalance();
+List<CashBalance> cashBalances = cashBalanceService.findCashBalance();
     model.addAttribute("cashBalances", cashBalances);
-    float cash = cashBalanceSevice.getLastBalance();
+    float cash = cashBalanceService.getLastBalance();
     model.addAttribute("cash", cash);
     return "list_cashBill";
 }
