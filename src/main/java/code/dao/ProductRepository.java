@@ -1,9 +1,9 @@
 package code.dao;
 
+import code.domain.Product;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-
-import code.domain.Product;
 
 
 public interface ProductRepository extends JpaRepository<Product, Long> {

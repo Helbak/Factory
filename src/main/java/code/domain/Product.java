@@ -27,6 +27,7 @@ public class Product {
     private List<SalesInvoice> salesInvoices= new ArrayList<SalesInvoice>();
 
     public Product() {
+
     }
 
     public Product(String name, String producer, String measure, float amount, float purchasePrice, float sellingPrice, float costPrice) {
