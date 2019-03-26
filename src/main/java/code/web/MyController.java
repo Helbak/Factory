@@ -42,16 +42,6 @@ public String writing() {
         productService.addProduct(product);
         return "add_product";
     }
-//    @RequestMapping("/supply_product")
-//    public String supplyProduct(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
-//
-//        List<Product> products = productService.findProducts();
-//
-//        model.addAttribute("products", products);
-//        return "choose_supply_product";
-//    }
-
-
 
     @RequestMapping("/sales_invoice")
     public String salesInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
@@ -65,7 +55,7 @@ model.addAttribute("cash", cash);
     }
     @RequestMapping("/check_sales_invoice")
     public String checkSalesInvoice(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
-
+if(amount<saleAmount){return "have_no_resources";}
         model.addAttribute("id", id);
         model.addAttribute("name", name);
         model.addAttribute("amount", amount);
@@ -75,7 +65,6 @@ model.addAttribute("cash", cash);
     }
     @RequestMapping(value = "/write_sales_invoice", method = RequestMethod.POST)
     public String writeSalesInvoice(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
-//        productService.saleProduct(id, saleAmount);
 
 
         Product product = productService.getProductById(id);
@@ -99,13 +88,14 @@ public String incomingInvoice(Model model, @RequestParam(required = false, defau
 }
     @RequestMapping(value = "/check_incoming_invoice", method = RequestMethod.POST)
     public String checkIncomingInvoice(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice,Float sellingPrice ) {
+        if (plusAmount * purchasePrice <= cashBalanceService.getLastBalance()) {
         model.addAttribute("id", id);
         model.addAttribute("name", name);
         model.addAttribute("plusAmount", plusAmount);
         model.addAttribute("newPurchasePrice", purchasePrice);
         model.addAttribute("newSellingPrice", sellingPrice);
-
-        return "check_incoming_invoices";
+        return "check_incoming_invoices";}
+        return "have_no_resources";
     }
 
 //    @RequestMapping(value = "/write_supply_product", method = RequestMethod.POST)

@@ -14,9 +14,9 @@
         Measure: <input type="text" name="measure">
         <br>
         <br>
-       Amount: <input type="number" name="amount">
-        <br>
-        <br>
+       <%--Amount: <input type="number" name="amount">--%>
+        <%--<br>--%>
+        <%--<br>--%>
         Purchase price: <input type="number" name="purchasePrice">
         <br>
         <br>
@@ -24,6 +24,7 @@
         <br>
         <br>
         <input type="submit" value="ADD"/>
+        <input hidden name="amount" value=0>
     </form>
     <br>
     <br>

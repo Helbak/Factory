@@ -16,9 +16,9 @@
 <form action="/list_cashBill" method="GET">
     <input type="submit" value="LIST"/>
 </form>
-<br>
 
-<h5>Total Profit Wow</h5>
+
+<h5>Total Profit</h5>
 <h4>${profit}</h4>
 
 <div align="center">
@@ -28,7 +28,7 @@
         <tr >
          <td border = "3">
 <form action="/add_product" method="GET">
-   <h2>  Add new product  </h2>
+   <h4>  Add new product  </h4>
     <div align="center">
     <input type="submit" value="ADD"/>
     </div>
@@ -41,7 +41,7 @@
          </td>
             <td border = "3">
             <form action="/sales_invoice" method="GET">
-        <h2>   Sales Invoice  </h2>
+        <h4>   Sales Invoice  </h4>
                 <div align="center">
         <input type="submit" value="SALE"/>
                 </div>
@@ -54,7 +54,7 @@
             </td>
             <td>
             <form action="/incoming_invoice" method="GET">
-        <h2> Incoming Invoice  </h2>
+        <h4> Incoming Invoice  </h4>
                 <div align="center">
         <input type="submit" value="BUY"/>
                 </div>
@@ -73,13 +73,13 @@
 <table border = "3">
             <tr border = "3">
                 <div align="center">
-                    <br>
+
 
 <tr border = "3"><h1>PRODUCING</h1></tr>
                     <tr >
                         <td border = "3">
                             <form action="/add_raw" method="GET">
-                                <h2>  Add new raw material:  </h2>
+                                <h4>  Add new raw material:  </h4>
                                 <div align="center">
                                     <input type="submit" value="ADD"/>
                                 </div>
@@ -89,7 +89,7 @@
 
                         <td>
                             <form action="/buy_raw" method="GET">
-                                <h2> Buy Raw Material  :</h2>
+                                <h4> Buy Raw Material  :</h4>
                                 <div align="center">
                                     <input type="submit" value="BUY RAW"/>
                                 </div>
@@ -99,7 +99,7 @@
                     <tr>
                         <td>
                             <form action="/add_formula" method="GET">
-                                <h2>  Add new formula of Product:  </h2>
+                                <h4>  Add new formula of Product:  </h4>
                                 <div align="center">
                                     <input type="submit" value="ADD"/>
                                 </div>
@@ -107,7 +107,7 @@
                         </td>
                         <td>
                             <form action="/coverse_raw" method="GET">
-                                <h2>   Produce Product:  </h2>
+                                <h4>   Produce Product:  </h4>
                                 <div align="center">
                                     <input type="submit" value="SALE"/>
                                 </div>

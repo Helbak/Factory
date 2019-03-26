@@ -36,7 +36,7 @@ private CashBalanceService cashBalanceService;
     @Override
     @Transactional
     public float getSumOfInvoice (IncomingInvoice incomingInvoice){
-        float sumOfInvoice = incomingInvoice.getPlusAmount()*incomingInvoice.getSellingPrice();
+        float sumOfInvoice = incomingInvoice.getPlusAmount()*incomingInvoice.getPurchasePrice();
         return sumOfInvoice;
     }
     @Override
