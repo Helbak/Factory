@@ -88,7 +88,7 @@
                         </td>
 
                         <td>
-                            <form action="/buy_raw" method="GET">
+                            <form action="/raw_invoice" method="GET">
                                 <h4> Buy Raw Material  :</h4>
                                 <div align="center">
                                     <input type="submit" value="BUY RAW"/>

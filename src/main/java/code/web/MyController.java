@@ -1,9 +1,6 @@
 package code.web;
 
-import code.domain.CashBalance;
-import code.domain.IncomingInvoice;
-import code.domain.Product;
-import code.domain.SalesInvoice;
+import code.domain.*;
 import code.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,6 +19,7 @@ private IncomingInvoiceService incomingInvoiceService;
 private SalesInvoiceService salesInvoiceService;
 private CashBalanceService cashBalanceService;
 private ProfitService profitService;
+private RawService rawService;
 
     @RequestMapping("/")
     public String something(Model model) {
@@ -35,12 +33,20 @@ private ProfitService profitService;
 public String writing() {
     return "add_product";
 }
+@RequestMapping("/add_raw")
+public String addRaw(){return  "add_raw";}
 
     @RequestMapping(value = "/write_product", method = RequestMethod.POST)
-    public String newUser(Model model, @RequestParam String name, String producer, String measure, float amount, float purchasePrice,float sellingPrice ) {
+    public String newProduct(Model model, @RequestParam String name, String producer, String measure, float amount, float purchasePrice,float sellingPrice ) {
         Product product = new Product(name, producer, measure, amount,purchasePrice, sellingPrice, purchasePrice);
         productService.addProduct(product);
         return "add_product";
+    }
+    @RequestMapping(value = "/write_raw", method = RequestMethod.POST)
+    public String newRaw(Model model, @RequestParam String name, String producer, String measure, float purchasePrice) {
+       Raw raw = new Raw(name, producer, measure, 0,purchasePrice, purchasePrice);
+        rawService.addRaw(raw);
+        return "add_raw";
     }
 
     @RequestMapping("/sales_invoice")
@@ -86,6 +92,17 @@ public String incomingInvoice(Model model, @RequestParam(required = false, defau
     model.addAttribute("products", products);
     return "choose_incoming_invoice";
 }
+
+    @RequestMapping("/raw_invoice")
+    public String rawInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+
+        List<Raw> raws = rawService.findRaws();
+        float cash = cashBalanceService.getLastBalance();
+        model.addAttribute("cash", cash);
+        model.addAttribute("raws", raws);
+        return "choose_raw_invoice";
+    }
+
     @RequestMapping(value = "/check_incoming_invoice", method = RequestMethod.POST)
     public String checkIncomingInvoice(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice,Float sellingPrice ) {
         if (plusAmount * purchasePrice <= cashBalanceService.getLastBalance()) {
@@ -98,15 +115,19 @@ public String incomingInvoice(Model model, @RequestParam(required = false, defau
         return "have_no_resources";
     }
 
-//    @RequestMapping(value = "/write_supply_product", method = RequestMethod.POST)
-//    public String writeSupply(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice ) {
-//
-//        productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
-//
-//        return "first";
-//    }
+    @RequestMapping(value = "/check_raw_invoice", method = RequestMethod.POST)
+    public String checkIncomingInvoice(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice) {
+        if (plusAmount * purchasePrice <= cashBalanceService.getLastBalance()) {
+            model.addAttribute("id", id);
+            model.addAttribute("name", name);
+            model.addAttribute("plusAmount", plusAmount);
+            model.addAttribute("newPurchasePrice", purchasePrice);
+            return "check_raw_invoices";}
+        return "have_no_resources";
+    }
+
     @RequestMapping(value = "/write_incoming_invoice", method = RequestMethod.POST)
-    public String writeIncomingInvoice(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice ) {
+    public String writeIncomingInvoice(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice, String branch ) {
 Product product = productService.getProductById(id);
         IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), sellingPrice, purchasePrice, plusAmount);
         incomingInvoiceService.addIncomingInvoice(incomingInvoice);
@@ -117,6 +138,20 @@ Product product = productService.getProductById(id);
         model.addAttribute("profit", profit);
         return "first";
     }
+
+//    @RequestMapping(value = "/write_raw_invoice", method = RequestMethod.POST)
+//    public String writeIncomingInvoice(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice, String branch ) {
+//        Product product = productService.getProductById(id);
+//        IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), sellingPrice, purchasePrice, plusAmount);
+//        incomingInvoiceService.addIncomingInvoice(incomingInvoice);
+//        productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
+//        float cash = cashBalanceService.getLastBalance();
+//        model.addAttribute("cash", cash);
+//        float profit = profitService.getLastTotalProfit();
+//        model.addAttribute("profit", profit);
+//        return "first";
+//    }
+
 
 @RequestMapping("/list_cashBill")
 public String listCashBill(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {

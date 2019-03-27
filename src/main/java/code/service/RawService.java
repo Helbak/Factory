@@ -1,5 +1,6 @@
 package code.service;
 
+import code.domain.IncomingInvoice;
 import code.domain.Raw;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface RawService {
     void newCostPrice(Raw raw, float plusAmount, float newPurchasePrice);
     void newAmount(Raw raw,float plusAmount);
     Raw getRawById(Long id);
-    float getSumOfRow();
+    float getSumOfRows();
     boolean inProcessRaw (Raw raw, Float inProcessAmount);
 
 }

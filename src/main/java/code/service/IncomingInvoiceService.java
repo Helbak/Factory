@@ -9,5 +9,5 @@ public interface IncomingInvoiceService {
     List<IncomingInvoice> findIncomingInvoice ();
     float getSumOfInvoice (IncomingInvoice incomingInvoice);
     float getsumBuying();
-
+//    void addRawIncomingInvoice(IncomingInvoice incomingInvoice);
 }

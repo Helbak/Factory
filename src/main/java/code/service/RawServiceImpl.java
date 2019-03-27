@@ -20,9 +20,10 @@ public class RawServiceImpl implements RawService{
     }
     @Override
     @Transactional
-    public void supplyRaw(Raw raw, float plusAmount, float newCostPrice){
+    public void supplyRaw(Raw raw, float plusAmount, float newPurchasePrice){
         addRaw(raw);
         newAmount(raw,plusAmount);
+        newCostPrice(raw,plusAmount,newPurchasePrice);
 
     }
     @Override
@@ -64,13 +65,13 @@ public class RawServiceImpl implements RawService{
 
     @Override
     @Transactional
-    public float getSumOfRow(){
+    public float getSumOfRows(){
 
         List<Raw> raws = findRaws();
-        float sumOfRaw=0;
+        float sumOfRaws=0;
         for (Raw raw:raws){
-            sumOfRaw=sumOfRaw+raw.getAmount()*raw.getCostPrice();}
-                return sumOfRaw;
+            sumOfRaws=sumOfRaws+raw.getAmount()*raw.getCostPrice();}
+                return sumOfRaws;
     }
 
 }

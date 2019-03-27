@@ -1,6 +1,8 @@
 package code.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Raws")
@@ -16,6 +18,9 @@ public class Raw {
     private float amount;
     private float purchasePrice;
     private float costPrice;
+
+    @OneToMany(mappedBy = "raw", cascade = CascadeType.ALL)
+    private List<RawInvoice> rawInvoices= new ArrayList<RawInvoice>();
 
     public Raw() {
     }
