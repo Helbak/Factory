@@ -140,17 +140,17 @@ Product product = productService.getProductById(id);
     }
 
 //    @RequestMapping(value = "/write_raw_invoice", method = RequestMethod.POST)
-//    public String writeIncomingInvoice(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice, String branch ) {
-//        Product product = productService.getProductById(id);
-//        IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), sellingPrice, purchasePrice, plusAmount);
-//        incomingInvoiceService.addIncomingInvoice(incomingInvoice);
-//        productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
-//        float cash = cashBalanceService.getLastBalance();
-//        model.addAttribute("cash", cash);
-//        float profit = profitService.getLastTotalProfit();
-//        model.addAttribute("profit", profit);
-//        return "first";
-//    }
+    public String writeIncomingInvoice(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice, String branch ) {
+        Product product = productService.getProductById(id);
+        IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), sellingPrice, purchasePrice, plusAmount);
+        incomingInvoiceService.addIncomingInvoice(incomingInvoice);
+        productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
+        float cash = cashBalanceService.getLastBalance();
+        model.addAttribute("cash", cash);
+        float profit = profitService.getLastTotalProfit();
+        model.addAttribute("profit", profit);
+        return "first";
+    }
 
 
 @RequestMapping("/list_cashBill")
