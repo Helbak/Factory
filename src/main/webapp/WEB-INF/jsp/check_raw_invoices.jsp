@@ -30,7 +30,7 @@
                             <td><b>Id</b></td>
                             <td><b>Name</b></td>
                             <td><b>Plus Amount</b></td>
-                            <td><b>Purchase Price</b></td>
+                            <td><b>New Purchase Price</b></td>
 
 
                         </tr>
@@ -51,10 +51,10 @@
                     <form action="/write_raw_invoice" method="POST">
 
                         <input hidden name="id" value="${id}">
-                        <input hidden name="name" value="${name}">
+                        <%--<input hidden name="name" value="${name}">--%>
                         <input hidden name="plusAmount" value="${plusAmount}">
-                        <input hidden name="purchasePrice" value="${newPurchasePrice}">
-                        <input hidden name="branch" value="Produce">
+                        <input hidden name="newPurchasePrice" value="${newPurchasePrice}">
+                        <%--<input hidden name="branch" value="Produce">--%>
                             <input type="submit" value="CONFIRM" />
 
                     </form>

@@ -45,12 +45,12 @@ public class RawServiceImpl implements RawService{
     }
     @Override
     @Transactional
-    public Raw getRawById(Long id){
+    public Raw getRawById(Long id) {
         List<Raw> raws = findRaws();
-        for (Raw raw:raws){
-            if (id==raw.getId())
+        for (Raw raw : raws) {
+            if (id == raw.getId())
                 return raw;
-        }
+           }
         return null;
     }
     @Override

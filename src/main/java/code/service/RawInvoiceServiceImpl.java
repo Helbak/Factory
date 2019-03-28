@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class RawInvoiceServiceImpl {
+public class RawInvoiceServiceImpl implements RawInvoiceService{
 
     private RawInvoiceRepository rawInvoiceRepository;
     private CashBalanceService cashBalanceService;
@@ -20,7 +20,7 @@ public class RawInvoiceServiceImpl {
        float sumOfInvoice = - getSumOfInvoice(rawInvoice);
        cashBalanceService.addCashBalance(new Date(), "payRaw", rawInvoice.getId(), sumOfInvoice);
        rawService.supplyRaw(rawInvoice.getRaw(),rawInvoice.getPlusAmount(), rawInvoice.getPurchasePrice());
-
+rawInvoiceRepository.save(rawInvoice);
    }
    public List<RawInvoice> findRawInvoice (){
        return rawInvoiceRepository.findAll();

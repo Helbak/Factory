@@ -1,13 +1,7 @@
 package code;
 
-import code.domain.CashBalance;
-import code.domain.IncomingInvoice;
-import code.domain.Product;
-import code.domain.Raw;
-import code.service.CashBalanceService;
-import code.service.IncomingInvoiceService;
-import code.service.ProductService;
-import code.service.RawService;
+import code.domain.*;
+import code.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -25,6 +19,7 @@ private ProductService productService;
 private IncomingInvoiceService incomingInvoiceService;
 private CashBalanceService cashBalanceService;
 private RawService rawService;
+private RawInvoiceService rawInvoiceService;
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
@@ -48,5 +43,7 @@ private RawService rawService;
         cashBalanceService.manualAddCashBalance(cashBalance);
         IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), 200,250,100);
         incomingInvoiceService.addIncomingInvoice(incomingInvoice);
+        RawInvoice rawInvoice = new RawInvoice(raw, new Date(),20,100);
+        rawInvoiceService.addRawInvoice(rawInvoice);
     }
 }

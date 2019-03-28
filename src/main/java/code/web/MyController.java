@@ -20,6 +20,7 @@ private SalesInvoiceService salesInvoiceService;
 private CashBalanceService cashBalanceService;
 private ProfitService profitService;
 private RawService rawService;
+private RawInvoiceService rawInvoiceService;
 
     @RequestMapping("/")
     public String something(Model model) {
@@ -139,12 +140,12 @@ Product product = productService.getProductById(id);
         return "first";
     }
 
-//    @RequestMapping(value = "/write_raw_invoice", method = RequestMethod.POST)
-    public String writeIncomingInvoice(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice, String branch ) {
-        Product product = productService.getProductById(id);
-        IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), sellingPrice, purchasePrice, plusAmount);
-        incomingInvoiceService.addIncomingInvoice(incomingInvoice);
-        productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
+    @RequestMapping(value = "/write_raw_invoice", method = RequestMethod.POST)
+    public String writeRawInvoice(Model model, @RequestParam Long id, Float plusAmount, Float newPurchasePrice) {
+        Raw raw = rawService.getRawById(id);
+        RawInvoice rawInvoice = new RawInvoice(raw, new Date(), newPurchasePrice, plusAmount);
+        rawInvoiceService.addRawInvoice(rawInvoice);
+        rawService.supplyRaw(raw, plusAmount, newPurchasePrice);
         float cash = cashBalanceService.getLastBalance();
         model.addAttribute("cash", cash);
         float profit = profitService.getLastTotalProfit();
