@@ -9,8 +9,10 @@ public class RawInvoice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "raw_id")
     private Raw raw;
 
     private Date data;

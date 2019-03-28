@@ -21,6 +21,8 @@ public class Raw {
 
     @OneToMany(mappedBy = "raw", cascade = CascadeType.ALL)
     private List<RawInvoice> rawInvoices= new ArrayList<RawInvoice>();
+    @OneToMany(mappedBy = "raw", cascade = CascadeType.ALL)
+    private List<Ingredient> ingredients= new ArrayList<Ingredient>();
 
     public Raw() {
     }
