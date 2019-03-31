@@ -15,8 +15,9 @@ public class Ingredient {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "raw_id")
     private Raw raw;
-    @OneToMany(mappedBy = "formula", cascade = CascadeType.ALL)
-    private List<Formula> formulas= new ArrayList<Formula>();
+    @OneToOne
+    @JoinColumn(name="Id_formula")
+    private Formula formula;
 
     public Ingredient() {
     }

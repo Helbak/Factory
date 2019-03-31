@@ -13,19 +13,63 @@ public class Formula {
 
     private String name;
     private String measure;
-    private float gramPortion;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ingredient_id")
-    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+    @OneToOne
+    @JoinColumn(name="Id_ingredient_one")
+    private Ingredient one;
+    @OneToOne
+    @JoinColumn(name="Id_ingredient_two")
+    private Ingredient two;
+    @OneToOne
+    @JoinColumn(name="Id_ingredient_three")
+    private Ingredient three;
+    @OneToOne
+    @JoinColumn(name="Id_ingredient_four")
+    private Ingredient four;
+    @OneToOne
+    @JoinColumn(name="Id_ingredient_five")
+    private Ingredient five;
 
     public Formula() {
     }
 
-    public Formula(String name, String measure, float gramPortion, List<Ingredient> ingredients) {
+    public Formula(String name, String measure, Ingredient one) {
         this.name = name;
         this.measure = measure;
-        this.gramPortion = gramPortion;
-        this.ingredients = ingredients;
+        this.one = one;
+    }
+
+    public Formula(String name, String measure, Ingredient one, Ingredient two) {
+        this.name = name;
+        this.measure = measure;
+        this.one = one;
+        this.two = two;
+    }
+
+    public Formula(String name, String measure, Ingredient one, Ingredient two, Ingredient three) {
+        this.name = name;
+        this.measure = measure;
+        this.one = one;
+        this.two = two;
+        this.three = three;
+    }
+
+    public Formula(String name, String measure, Ingredient one, Ingredient two, Ingredient three, Ingredient four) {
+        this.name = name;
+        this.measure = measure;
+        this.one = one;
+        this.two = two;
+        this.three = three;
+        this.four = four;
+    }
+
+    public Formula(String name, String measure, Ingredient one, Ingredient two, Ingredient three, Ingredient four, Ingredient five) {
+        this.name = name;
+        this.measure = measure;
+        this.one = one;
+        this.two = two;
+        this.three = three;
+        this.four = four;
+        this.five = five;
     }
 
     public long getId() {
@@ -52,19 +96,43 @@ public class Formula {
         this.measure = measure;
     }
 
-    public float getGramPortion() {
-        return gramPortion;
+    public Ingredient getOne() {
+        return one;
     }
 
-    public void setGramPortion(float gramPortion) {
-        this.gramPortion = gramPortion;
+    public void setOne(Ingredient one) {
+        this.one = one;
     }
 
-    public List<Ingredient> getIngredients() {
-        return ingredients;
+    public Ingredient getTwo() {
+        return two;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public void setTwo(Ingredient two) {
+        this.two = two;
+    }
+
+    public Ingredient getThree() {
+        return three;
+    }
+
+    public void setThree(Ingredient three) {
+        this.three = three;
+    }
+
+    public Ingredient getFour() {
+        return four;
+    }
+
+    public void setFour(Ingredient four) {
+        this.four = four;
+    }
+
+    public Ingredient getFive() {
+        return five;
+    }
+
+    public void setFive(Ingredient five) {
+        this.five = five;
     }
 }

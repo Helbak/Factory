@@ -20,6 +20,8 @@ private IncomingInvoiceService incomingInvoiceService;
 private CashBalanceService cashBalanceService;
 private RawService rawService;
 private RawInvoiceService rawInvoiceService;
+private IngredientService ingredientService;
+private FormulaService formulaService;
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
@@ -45,5 +47,11 @@ private RawInvoiceService rawInvoiceService;
         incomingInvoiceService.addIncomingInvoice(incomingInvoice);
         RawInvoice rawInvoice = new RawInvoice(raw, new Date(),20,100);
         rawInvoiceService.addRawInvoice(rawInvoice);
+        Ingredient ingredient = new Ingredient(200,raw);
+        ingredientService.addIngredient(ingredient);
+        Ingredient ingredient1 = new Ingredient(100, raw1);
+        ingredientService.addIngredient(ingredient1);
+        Formula formula = new Formula("firstFormula", "gr", ingredient,ingredient1);
+        formulaService.addFormula(formula);
     }
 }
