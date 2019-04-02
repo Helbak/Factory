@@ -12,6 +12,7 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private float weight;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "raw_id")
     private Raw raw;

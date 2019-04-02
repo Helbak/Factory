@@ -16,4 +16,5 @@ void newAmount(Product product,float plusAmount);
 Product getProductById(Long id);
 void saleProduct (long id, Float saleAmount);
 float getsumProduct();
+void supplyProductFromProduction(Product product);
 }

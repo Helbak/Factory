@@ -22,6 +22,7 @@
                 <div align="center">
                     <img height="50" width="55" src="<c:url value="/src/main/webapp/WEB-INF/static/logo1.png"/>">
                 <h1>you do not have enough resources</h1>
+               <h2>${rawOneId}</h2>
                 </div>
 
             </div>

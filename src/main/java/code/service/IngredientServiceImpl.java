@@ -37,63 +37,19 @@ private IngredientRepository ingredientRepository;
         }
         return null;
     }
-//    @Override
-//    @Transactional
-//    public List<Ingredient> createListIngredients(Integer one, Integer two, Integer three, Integer four, Integer five){
-//        List<Integer> listIngredients = new ArrayList<Integer>();
-//        listIngredients.add(one);
-//        listIngredients.add(two);
-//        listIngredients.add(three);
-//        listIngredients.add(four);
-//        listIngredients.add(five);
-//
-//        return getIngredientsOfFormula(listIngredients);
-//    }
-//    @Override
-//    @Transactional
-//    public List<Ingredient> createListIngredients(Integer one, Integer two, Integer three, Integer four){
-//        List<Integer> listIngredients = new ArrayList<Integer>();
-//        listIngredients.add(one);
-//        listIngredients.add(two);
-//        listIngredients.add(three);
-//        listIngredients.add(four);
-//
-//        return getIngredientsOfFormula(listIngredients);
-//    }
-//    @Override
-//    @Transactional
-//    public List<Ingredient> createListIngredients(Integer one, Integer two, Integer three){
-//        List<Integer> listIngredients = new ArrayList<Integer>();
-//        listIngredients.add(one);
-//        listIngredients.add(two);
-//        listIngredients.add(three);
-//
-//        return getIngredientsOfFormula(listIngredients);
-//    }
-//    @Override
-//    @Transactional
-//    public List<Ingredient> createListIngredients(Integer one, Integer two){
-//        List<Integer> listIngredients = new ArrayList<Integer>();
-//        listIngredients.add(one);
-//        listIngredients.add(two);
-//
-//        return getIngredientsOfFormula(listIngredients);
-//    }
-//    @Override
-//    @Transactional
-//    public List<Ingredient> createListIngredients(Integer one){
-//        List<Integer> listIngredients = new ArrayList<Integer>();
-//        listIngredients.add(one);
-//
-//        return getIngredientsOfFormula(listIngredients);
-//    }
-//    @Override
-//    @Transactional
-//    public List<Ingredient> getIngredientsOfFormula(List<Integer> listIdIngredients){
-//        List<Ingredient> ingredientsOfFormula=new ArrayList<Ingredient>();
-//        for(int i=0; i<listIdIngredients.size(); i++){
-//            ingredientsOfFormula.add(getIngredientById(listIdIngredients.get(i)));
-//        }
-//        return ingredientsOfFormula;
-//    }
+    @Override
+    @Transactional
+   public boolean checkResourcesForFormula(Ingredient ingredient, int amount){
+//      if(ingredient.getRaw().getAmount()<=ingredient.getWeight()*amount){
+//         return false;}
+        return true;
+
+    }
+    @Override
+    @Transactional
+    public float getIngredientsCostPrice(Ingredient ingredient){
+
+       return ingredient.getWeight()*ingredient.getRaw().getCostPrice()/1000;
+    }
+
 }

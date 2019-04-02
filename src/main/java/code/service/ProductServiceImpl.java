@@ -83,4 +83,9 @@ newCostPrice(product, plusAmount,newPurchasePrice,newSellingPrice);
         }
         return sumProduct;
     }
+    @Override
+    @Transactional
+    public void supplyProductFromProduction(Product product){
+        productRepository.save(product);
+    }
 }

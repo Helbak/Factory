@@ -232,7 +232,11 @@ public class MyController {
     }
     @RequestMapping("/done_one_ingredient")
     public String doneOneIngredient(Model model, @RequestParam String nameFormula, String measure, Long rawOneId, Float amountOne) {
-Ingredient ingredientOne = new Ingredient(amountOne, rawService.getRawById(rawOneId));
+Raw rawTest = rawService.getRawById(rawOneId);
+if(rawTest==null){
+    model.addAttribute("rawOneId", rawOneId);
+    return "have_no_resources";}
+        Ingredient ingredientOne = new Ingredient(amountOne, rawTest);
 ingredientService.addIngredient(ingredientOne);
 Formula formula = new Formula(nameFormula,measure, ingredientOne);
 formulaService.addFormula(formula);
@@ -243,7 +247,8 @@ formulaService.addFormula(formula);
         return "first";
     }
     @RequestMapping("/add_formula_page_three")
-    public String addFormulaThree(Model model, @RequestParam String nameFormula, String measure, Long rawOneId, Float amountOne,Long rawTwoId, Float amountTwo) {
+    public String addFormulaThree(Model model, @RequestParam String nameFormula, String measure,
+                                  Long rawOneId, Float amountOne,Long rawTwoId, Float amountTwo) {
         List<Raw> raws = rawService.findRaws();
         model.addAttribute("raws", raws);
         model.addAttribute("nameFormula", nameFormula);
@@ -293,6 +298,27 @@ Ingredient ingredient3 = new Ingredient(amountThree, rawService.getRawById(rawTh
         formulaService.addFormula(formula);
 
         float cash = cashBalanceService.getLastBalance();
+        model.addAttribute("cash", cash);
+        float profit = profitService.getLastTotalProfit();
+        model.addAttribute("profit", profit);
+        return "first";
+    }
+
+    @RequestMapping("/produce_product")
+    public String produceProduct (Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+        List<Formula> formulas = formulaService.findFormula();
+        model.addAttribute("formulas", formulas);
+
+        return "produce_product";
+    }
+
+    @RequestMapping("/add_product_to_trading")
+    public String product_to_trading(Model model, @RequestParam long formulaId, int amount, float markup){
+Formula formula = formulaService.getFormulaById(formulaId);
+        if(formulaService.checkResourcesForFormula(formula,amount)==false){return "have_no_resources";}
+Product product = formulaService.createObjectProduct(formula,amount,markup);
+        productService.supplyProductFromProduction(product);
+            float cash = cashBalanceService.getLastBalance();
         model.addAttribute("cash", cash);
         float profit = profitService.getLastTotalProfit();
         model.addAttribute("profit", profit);

@@ -76,7 +76,7 @@
     <form action="/done_one_ingredient" method="POST">
         <input hidden name="nameFormula" value="${nameFormula}">
         <input hidden name="measure" value="${measure}">
-        <input hidden name="rawOneName" value="${rawOneName}">
+        <input hidden name="rawOneId" value="${rawOneId}">
         <input hidden name="amountOne" value="${amountOne}">
 
         <input type="submit" value="DONE" />
