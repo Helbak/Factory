@@ -48,7 +48,7 @@ public class RawServiceImpl implements RawService{
     public Raw getRawById(Long id) {
         List<Raw> raws = findRaws();
         for (Raw raw : raws) {
-            if (id == raw.getId())
+            if (id == (Long)raw.getId())
                 return raw;
            }
         return null;

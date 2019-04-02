@@ -14,13 +14,15 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class MyController {
-private ProductService productService;
-private IncomingInvoiceService incomingInvoiceService;
-private SalesInvoiceService salesInvoiceService;
-private CashBalanceService cashBalanceService;
-private ProfitService profitService;
-private RawService rawService;
-private RawInvoiceService rawInvoiceService;
+    private ProductService productService;
+    private IncomingInvoiceService incomingInvoiceService;
+    private SalesInvoiceService salesInvoiceService;
+    private CashBalanceService cashBalanceService;
+    private ProfitService profitService;
+    private RawService rawService;
+    private RawInvoiceService rawInvoiceService;
+    private IngredientService ingredientService;
+    private FormulaService formulaService;
 
     @RequestMapping("/")
     public String something(Model model) {
@@ -28,24 +30,29 @@ private RawInvoiceService rawInvoiceService;
         float profit = profitService.getLastTotalProfit();
         model.addAttribute("cash", cash);
         model.addAttribute("profit", profit);
-        return "first"; }
+        return "first";
+    }
 
-@RequestMapping("/add_product")
-public String writing() {
-    return "add_product";
-}
-@RequestMapping("/add_raw")
-public String addRaw(){return  "add_raw";}
+    @RequestMapping("/add_product")
+    public String writing() {
+        return "add_product";
+    }
+
+    @RequestMapping("/add_raw")
+    public String addRaw() {
+        return "add_raw";
+    }
 
     @RequestMapping(value = "/write_product", method = RequestMethod.POST)
-    public String newProduct(Model model, @RequestParam String name, String producer, String measure, float amount, float purchasePrice,float sellingPrice ) {
-        Product product = new Product(name, producer, measure, amount,purchasePrice, sellingPrice, purchasePrice);
+    public String newProduct(Model model, @RequestParam String name, String producer, String measure, float amount, float purchasePrice, float sellingPrice) {
+        Product product = new Product(name, producer, measure, amount, purchasePrice, sellingPrice, purchasePrice);
         productService.addProduct(product);
         return "add_product";
     }
+
     @RequestMapping(value = "/write_raw", method = RequestMethod.POST)
     public String newRaw(Model model, @RequestParam String name, String producer, String measure, float purchasePrice) {
-       Raw raw = new Raw(name, producer, measure, 0,purchasePrice, purchasePrice);
+        Raw raw = new Raw(name, producer, measure, 0, purchasePrice, purchasePrice);
         rawService.addRaw(raw);
         return "add_raw";
     }
@@ -56,13 +63,16 @@ public String addRaw(){return  "add_raw";}
         List<Product> products = productService.findProducts();
 
         float cash = cashBalanceService.getLastBalance();
-model.addAttribute("cash", cash);
+        model.addAttribute("cash", cash);
         model.addAttribute("products", products);
         return "choose_sales_invoice";
     }
+
     @RequestMapping("/check_sales_invoice")
     public String checkSalesInvoice(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
-if(amount<saleAmount){return "have_no_resources";}
+        if (amount < saleAmount) {
+            return "have_no_resources";
+        }
         model.addAttribute("id", id);
         model.addAttribute("name", name);
         model.addAttribute("amount", amount);
@@ -70,6 +80,7 @@ if(amount<saleAmount){return "have_no_resources";}
         model.addAttribute("saleAmount", saleAmount);
         return "check_sales_invoice";
     }
+
     @RequestMapping(value = "/write_sales_invoice", method = RequestMethod.POST)
     public String writeSalesInvoice(Model model, @RequestParam long id, String name, Float amount, Float sellingPrice, Float saleAmount) {
 
@@ -85,14 +96,14 @@ if(amount<saleAmount){return "have_no_resources";}
     }
 
     @RequestMapping("/incoming_invoice")
-public String incomingInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+    public String incomingInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
 
-    List<Product> products = productService.findProducts();
-    float cash = cashBalanceService.getLastBalance();
-    model.addAttribute("cash", cash);
-    model.addAttribute("products", products);
-    return "choose_incoming_invoice";
-}
+        List<Product> products = productService.findProducts();
+        float cash = cashBalanceService.getLastBalance();
+        model.addAttribute("cash", cash);
+        model.addAttribute("products", products);
+        return "choose_incoming_invoice";
+    }
 
     @RequestMapping("/raw_invoice")
     public String rawInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
@@ -105,31 +116,33 @@ public String incomingInvoice(Model model, @RequestParam(required = false, defau
     }
 
     @RequestMapping(value = "/check_incoming_invoice", method = RequestMethod.POST)
-    public String checkIncomingInvoice(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice,Float sellingPrice ) {
-        if (plusAmount * purchasePrice <= cashBalanceService.getLastBalance()) {
-        model.addAttribute("id", id);
-        model.addAttribute("name", name);
-        model.addAttribute("plusAmount", plusAmount);
-        model.addAttribute("newPurchasePrice", purchasePrice);
-        model.addAttribute("newSellingPrice", sellingPrice);
-        return "check_incoming_invoices";}
-        return "have_no_resources";
-    }
-
-    @RequestMapping(value = "/check_raw_invoice", method = RequestMethod.POST)
-    public String checkIncomingInvoice(Model model, @RequestParam long id, String name,  Float plusAmount, Float purchasePrice) {
+    public String checkIncomingInvoice(Model model, @RequestParam long id, String name, Float plusAmount, Float purchasePrice, Float sellingPrice) {
         if (plusAmount * purchasePrice <= cashBalanceService.getLastBalance()) {
             model.addAttribute("id", id);
             model.addAttribute("name", name);
             model.addAttribute("plusAmount", plusAmount);
             model.addAttribute("newPurchasePrice", purchasePrice);
-            return "check_raw_invoices";}
+            model.addAttribute("newSellingPrice", sellingPrice);
+            return "check_incoming_invoices";
+        }
+        return "have_no_resources";
+    }
+
+    @RequestMapping(value = "/check_raw_invoice", method = RequestMethod.POST)
+    public String checkIncomingInvoice(Model model, @RequestParam long id, String name, Float plusAmount, Float purchasePrice) {
+        if (plusAmount * purchasePrice <= cashBalanceService.getLastBalance()) {
+            model.addAttribute("id", id);
+            model.addAttribute("name", name);
+            model.addAttribute("plusAmount", plusAmount);
+            model.addAttribute("newPurchasePrice", purchasePrice);
+            return "check_raw_invoices";
+        }
         return "have_no_resources";
     }
 
     @RequestMapping(value = "/write_incoming_invoice", method = RequestMethod.POST)
-    public String writeIncomingInvoice(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice,Float sellingPrice, String branch ) {
-Product product = productService.getProductById(id);
+    public String writeIncomingInvoice(Model model, @RequestParam Long id, Float plusAmount, Float purchasePrice, Float sellingPrice, String branch) {
+        Product product = productService.getProductById(id);
         IncomingInvoice incomingInvoice = new IncomingInvoice(product, new Date(), sellingPrice, purchasePrice, plusAmount);
         incomingInvoiceService.addIncomingInvoice(incomingInvoice);
         productService.supplyProduct(id, plusAmount, purchasePrice, sellingPrice);
@@ -154,14 +167,14 @@ Product product = productService.getProductById(id);
     }
 
 
-@RequestMapping("/list_cashBill")
-public String listCashBill(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
-List<CashBalance> cashBalances = cashBalanceService.findCashBalance();
-    model.addAttribute("cashBalances", cashBalances);
-    float cash = cashBalanceService.getLastBalance();
-    model.addAttribute("cash", cash);
-    return "list_cashBill";
-}
+    @RequestMapping("/list_cashBill")
+    public String listCashBill(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+        List<CashBalance> cashBalances = cashBalanceService.findCashBalance();
+        model.addAttribute("cashBalances", cashBalances);
+        float cash = cashBalanceService.getLastBalance();
+        model.addAttribute("cash", cash);
+        return "list_cashBill";
+    }
 
     @RequestMapping("/list_product")
     public String listProduct(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
@@ -190,4 +203,99 @@ List<CashBalance> cashBalances = cashBalanceService.findCashBalance();
         return "/list_incoming_invoice";
     }
 
+    @RequestMapping("/name_of_formula")
+    public String nameOfFormula (Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+        return "name_of_formula";
+    }
+
+    @RequestMapping("/add_formula")
+    public String addFormula(Model model, @RequestParam String nameFormula, String measure) {
+        List<Raw> raws = rawService.findRaws();
+        model.addAttribute("raws", raws);
+        model.addAttribute("nameFormula", nameFormula);
+        model.addAttribute("measure", measure);
+        return "add_formula";
+    }
+
+    @RequestMapping("/add_formula_page_two")
+    public String addFormulaTwo(Model model, @RequestParam String nameFormula, String measure, long rawId, Float amountOne) {
+        List<Raw> raws = rawService.findRaws();
+        String rawOneName = rawService.getRawById(rawId).getName();
+        Long rawOneId = rawId;
+        model.addAttribute("raws", raws);
+        model.addAttribute("nameFormula", nameFormula);
+        model.addAttribute("measure", measure);
+        model.addAttribute("amountOne", amountOne);
+        model.addAttribute("rawOneName", rawOneName);
+        model.addAttribute("rawOneId", rawOneId);
+        return "add_formula_page_two";
+    }
+    @RequestMapping("/done_one_ingredient")
+    public String doneOneIngredient(Model model, @RequestParam String nameFormula, String measure, Long rawOneId, Float amountOne) {
+Ingredient ingredientOne = new Ingredient(amountOne, rawService.getRawById(rawOneId));
+ingredientService.addIngredient(ingredientOne);
+Formula formula = new Formula(nameFormula,measure, ingredientOne);
+formulaService.addFormula(formula);
+        float cash = cashBalanceService.getLastBalance();
+        model.addAttribute("cash", cash);
+        float profit = profitService.getLastTotalProfit();
+        model.addAttribute("profit", profit);
+        return "first";
+    }
+    @RequestMapping("/add_formula_page_three")
+    public String addFormulaThree(Model model, @RequestParam String nameFormula, String measure, Long rawOneId, Float amountOne,Long rawTwoId, Float amountTwo) {
+        List<Raw> raws = rawService.findRaws();
+        model.addAttribute("raws", raws);
+        model.addAttribute("nameFormula", nameFormula);
+        model.addAttribute("measure", measure);
+        Ingredient ingredient1 = new Ingredient(amountOne,rawService.getRawById(rawOneId));
+        Ingredient ingredient2 = new Ingredient(amountTwo, rawService.getRawById(rawTwoId));
+        model.addAttribute("ingredient1", ingredient1);
+        model.addAttribute("ingredient2", ingredient2);
+        return "add_formula_page_three";
+    }
+    @RequestMapping("/done_two_ingredient")
+    public String doneTwoIngredient(Model model, @RequestParam String nameFormula, String measure, Ingredient ingredient1, Ingredient ingredient2) {
+
+        ingredientService.addIngredient(ingredient1);
+        ingredientService.addIngredient(ingredient2);
+        Formula formula = new Formula(nameFormula ,measure, ingredient1, ingredient2);
+        formulaService.addFormula(formula);
+        float cash = cashBalanceService.getLastBalance();
+        model.addAttribute("cash", cash);
+        float profit = profitService.getLastTotalProfit();
+        model.addAttribute("profit", profit);
+        return "first";
+    }
+    @RequestMapping("/add_formula_page_four")
+    public String addFormulaThree(Model model, @RequestParam String nameFormula, String measure, Ingredient ingredient1,
+                                  Ingredient ingredient2, Long rawThreeId, Float amountThree) {
+        List<Raw> raws = rawService.findRaws();
+        Ingredient ingredient3 = new Ingredient(amountThree, rawService.getRawById(rawThreeId));
+
+        model.addAttribute("raws", raws);
+        model.addAttribute("nameFormula", nameFormula);
+        model.addAttribute("measure", measure);
+
+        model.addAttribute("ingredient1", ingredient1);
+        model.addAttribute("ingredient2", ingredient2);
+        model.addAttribute("ingredient3", ingredient3);
+        return "add_formula_page_four";
+    }
+    @RequestMapping("/done_three_ingredient")
+    public String doneTwoIngredient(Model model, @RequestParam String nameFormula, String measure, Ingredient ingredient1,
+                                    Ingredient ingredient2, Long rawThreeId, Float amountThree) {
+Ingredient ingredient3 = new Ingredient(amountThree, rawService.getRawById(rawThreeId));
+        ingredientService.addIngredient(ingredient1);
+        ingredientService.addIngredient(ingredient2);
+        ingredientService.addIngredient(ingredient3);
+        Formula formula = new Formula(nameFormula ,measure, ingredient1, ingredient2, ingredient3);
+        formulaService.addFormula(formula);
+
+        float cash = cashBalanceService.getLastBalance();
+        model.addAttribute("cash", cash);
+        float profit = profitService.getLastTotalProfit();
+        model.addAttribute("profit", profit);
+        return "first";
+    }
 }

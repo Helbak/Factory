@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>supply_product</title>
+    <title>send_formula</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -11,9 +11,8 @@
 <body>
 <br>
 <br>
-<h2>Cash Balance</h2>
 
-<h2>${cash}</h2>
+
 <div class="container">
 
 
@@ -22,39 +21,45 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-               <h2>Raw invoice</h2>
+                <h4>Add Ingredient</h4>
 
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <%--<td></td>--%>
                         <td><b>Id</b></td>
-                        <td><b>Product</b></td>
-                            <td><b>Amount</b></td>
-                        <td><b>Plus Amount</b></td>
-                        <td><b>Purchase Price</b></td>
-                        <td><b>Get</b></td>
+                        <td><b>Raw</b></td>
+                        <td><b>Input Amount</b></td>
+
 
                     </tr>
                     </thead>
+
                     <c:forEach items="${raws}" var="raws">
                         <tr>
-                            <form action="/check_raw_invoice" method="POST">
+                            <form action="/add_formula_page_two" method="POST">
                                 <td>${raws.id}</td>
                                 <td>${raws.name}</td>
-                                <td>${raws.amount }</td>
-                                <input hidden name="id" value="${raws.id}">
-                                <input hidden name="name" value="${raws.name}">
-                                <td><input type="number" name="plusAmount"></td>
-                                <td><input type="number" name="purchasePrice"></td>
 
-                            <td>
-                                <input type="submit" value="GET" />
-                            </td>
-                                </form>
+                                <input hidden name="nameFormula" value="${nameFormula}">
+                                <input hidden name="measure" value="${measure}">
+                                <input hidden name="rawId" value="${raws.id}">
+                                <%--<input hidden name="sellingPrice" value="${product.sellingPrice}">--%>
+                                <td><input type="number" name="amountOne"></td>
+                                <td>
+                                    <input type="submit" value="ADD" />
+                                </td>
 
+
+                            </form>
                         </tr>
                     </c:forEach>
+                    <%--<h3>Name of Formula</h3>--%>
+                    <h3>${nameFormula}</h3>
+                    <%--<h3>Measure of Formula</h3>--%>
+                    <h3>${measure}</h3>
+
+
 
                 </table>
 
@@ -65,9 +70,9 @@
     </nav>
 </div>
 <div align="center">
-        <form action="/" method="POST">
-            <input type="submit" value="BACK" />
-        </form>
+    <form action="/" method="POST">
+        <input type="submit" value="BACK" />
+    </form>
 </div>
 </body>
 </html>

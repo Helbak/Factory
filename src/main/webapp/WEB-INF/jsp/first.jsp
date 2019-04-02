@@ -98,7 +98,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <form action="/add_formula" method="GET">
+                            <form action="/name_of_formula" method="GET">
                                 <h4>  Add new formula of Product:  </h4>
                                 <div align="center">
                                     <input type="submit" value="ADD"/>
@@ -109,7 +109,7 @@
                             <form action="/coverse_raw" method="GET">
                                 <h4>   Produce Product:  </h4>
                                 <div align="center">
-                                    <input type="submit" value="SALE"/>
+                                    <input type="submit" value="GET"/>
                                 </div>
                             </form>
                         </td>
