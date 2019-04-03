@@ -13,6 +13,15 @@ public class Formula {
 
     private String name;
     private String measure;
+//    @OneToMany(mappedBy = "formula", cascade = CascadeType.ALL)
+//    private List<Ingredient> one= new ArrayList<Ingredient>();
+//    @OneToMany(mappedBy = "formula", cascade = CascadeType.ALL)
+//    private List<Ingredient> two= new ArrayList<Ingredient>();
+//    @OneToMany(mappedBy = "formula", cascade = CascadeType.ALL)
+//    private List<Ingredient> three= new ArrayList<Ingredient>();
+
+
+
     @OneToOne
     @JoinColumn(name="Id_ingredient_one")
     private Ingredient one;
@@ -32,7 +41,27 @@ public class Formula {
     public Formula() {
     }
 
-    public Formula(String name, String measure, Ingredient one) {
+//    public Formula(String name, String measure, List<Ingredient> one) {
+//        this.name = name;
+//        this.measure = measure;
+//        this.one = one;
+//    }
+//
+//    public Formula(String name, String measure, List<Ingredient> one, List<Ingredient> two) {
+//        this.name = name;
+//        this.measure = measure;
+//        this.one = one;
+//        this.two = two;
+//    }
+//
+//    public Formula(String name, String measure, List<Ingredient> one, List<Ingredient> two, List<Ingredient> three) {
+//        this.name = name;
+//        this.measure = measure;
+//        this.one = one;
+//        this.two = two;
+//        this.three = three;
+//    }
+        public Formula(String name, String measure, Ingredient one) {
         this.name = name;
         this.measure = measure;
         this.one = one;

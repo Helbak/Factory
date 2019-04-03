@@ -18,15 +18,24 @@ public class Ingredient {
     private Raw raw;
     @OneToOne
     @JoinColumn(name="Id_formula")
+//@ManyToOne(fetch = FetchType.LAZY)
+//@JoinColumn(name = "formula_id")
     private Formula formula;
 
     public Ingredient() {
     }
 
+//    public Ingredient(float weight, Raw raw, Formula formula) {
+//        this.weight = weight;
+//        this.raw = raw;
+//        this.formula = formula;
+//    }
     public Ingredient(float weight, Raw raw) {
         this.weight = weight;
         this.raw = raw;
     }
+
+
 
     public long getId() {
         return id;
@@ -50,5 +59,13 @@ public class Ingredient {
 
     public void setRaw(Raw raw) {
         this.raw = raw;
+    }
+
+    public Formula getFormula() {
+        return formula;
+    }
+
+    public void setFormula(Formula formula) {
+        this.formula = formula;
     }
 }

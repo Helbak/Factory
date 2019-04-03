@@ -280,7 +280,7 @@ formulaService.addFormula(formula);
 if(ingredient1==null){return "have_no_resources";}
         ingredientService.addIngredient(ingredient1);
         ingredientService.addIngredient(ingredient2);
-        Formula formula = new Formula(nameFormula ,measure, ingredient1, ingredient2);
+        Formula formula = formulaService.preConstructorTwo(nameFormula, measure,ingredient1,ingredient2);
         formulaService.addFormula(formula);
 
         float cash = cashBalanceService.getLastBalance();

@@ -1,6 +1,7 @@
 package code.service;
 
 import code.domain.Formula;
+import code.domain.Ingredient;
 import code.domain.Product;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface FormulaService {
     float getWeightOfFormula (long id);
    float getCostPriceFormula (Formula formula);
    boolean checkResourcesForFormula(Formula formula, int amount);
+   Formula preConstructorTwo (String name, String measure, Ingredient one, Ingredient two);
 }

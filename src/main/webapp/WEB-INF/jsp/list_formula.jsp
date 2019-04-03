@@ -44,11 +44,11 @@
                                 <td>${formulas.id }</td>
                                 <td>${formulas.name }</td>
                                 <td>${formulas.measure}</td>
-                                <td>${formulas.one }</td>
-                                <td>${formulas.two }</td>
-                                <td>${formulas.three }</td>
-                            <td>${formulas.four }</td>
-                            <td>${formulas.five }</td>
+                                <td>${formulas.one.raw.name }</td>
+                                <td>${formulas.two.raw.name }</td>
+                                <td>${formulas.three.raw.name }</td>
+                            <td>${formulas.four.raw.name }</td>
+                            <td>${formulas.five.raw.name }</td>
                         </tr>
                     </c:forEach>
                 </table>

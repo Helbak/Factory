@@ -2,6 +2,7 @@ package code.service;
 
 import code.dao.FormulaRepository;
 import code.domain.Formula;
+import code.domain.Ingredient;
 import code.domain.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -85,6 +86,8 @@ formulaRepository.save(formula);
         if(formula.getFive()!=null & ingredientService.checkResourcesForFormula(formula.getFive(), amount)==true){return true;}
 
        return false;
+
+
     }
     @Override
     @Transactional
@@ -110,5 +113,9 @@ formulaRepository.save(formula);
          float sellingPrice = costPrice*markup/100+costPrice;
          Product product = new Product(name, producer,measure,amount, purchasePrice,sellingPrice,costPrice);
          return product;
+    }
+    public Formula preConstructorTwo (String name, String measure, Ingredient one, Ingredient two){
+        Formula formula = new Formula(name, measure,  one,  two);
+        return formula;
     }
 }
