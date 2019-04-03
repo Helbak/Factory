@@ -40,8 +40,8 @@ private IngredientRepository ingredientRepository;
     @Override
     @Transactional
    public boolean checkResourcesForFormula(Ingredient ingredient, int amount){
-//      if(ingredient.getRaw().getAmount()<=ingredient.getWeight()*amount){
-//         return false;}
+      if(ingredient.getRaw().getAmount()<=ingredient.getWeight()*amount){
+         return false;}
         return true;
 
     }

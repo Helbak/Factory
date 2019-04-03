@@ -65,7 +65,7 @@ public class RawServiceImpl implements RawService{
 
     @Override
     @Transactional
-    public float getSumOfRows(){
+    public float getSumOfRaws(){
 
         List<Raw> raws = findRaws();
         float sumOfRaws=0;

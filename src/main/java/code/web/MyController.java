@@ -184,7 +184,22 @@ public class MyController {
         model.addAttribute("products", products);
         return "list_product";
     }
-
+    @RequestMapping("/list_raw")
+    public String listRaw(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+        List<Raw> raws = rawService.findRaws();
+        float sumRaw = rawService.getSumOfRaws();
+        model.addAttribute("sumRaw", sumRaw);
+        model.addAttribute("raws", raws);
+        return "list_raw";
+    }
+    @RequestMapping("/list_formula")
+    public String listFormula(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
+        List<Formula> formulas = formulaService.findFormula();
+        List<Ingredient>ingredients = ingredientService.findIngredientsDAO();
+        model.addAttribute("ingredients", ingredients);
+        model.addAttribute("formulas", formulas);
+       return "list_formula";
+    }
     @RequestMapping("/list_sales_invoice")
     public String listSalesInvoice(Model model, @RequestParam(required = false, defaultValue = "0") Integer page) {
         List<SalesInvoice> salesInvoices = salesInvoiceService.findSalesInvoice();
@@ -232,11 +247,8 @@ public class MyController {
     }
     @RequestMapping("/done_one_ingredient")
     public String doneOneIngredient(Model model, @RequestParam String nameFormula, String measure, Long rawOneId, Float amountOne) {
-Raw rawTest = rawService.getRawById(rawOneId);
-if(rawTest==null){
-    model.addAttribute("rawOneId", rawOneId);
-    return "have_no_resources";}
-        Ingredient ingredientOne = new Ingredient(amountOne, rawTest);
+
+        Ingredient ingredientOne = new Ingredient(amountOne, rawService.getRawById(rawOneId));
 ingredientService.addIngredient(ingredientOne);
 Formula formula = new Formula(nameFormula,measure, ingredientOne);
 formulaService.addFormula(formula);
@@ -253,19 +265,24 @@ formulaService.addFormula(formula);
         model.addAttribute("raws", raws);
         model.addAttribute("nameFormula", nameFormula);
         model.addAttribute("measure", measure);
+        if(rawService.getRawById(rawOneId)==null){return "have_no_resources";}
         Ingredient ingredient1 = new Ingredient(amountOne,rawService.getRawById(rawOneId));
+        ingredientService.addIngredient(ingredient1);
         Ingredient ingredient2 = new Ingredient(amountTwo, rawService.getRawById(rawTwoId));
+        ingredientService.addIngredient(ingredient2);
         model.addAttribute("ingredient1", ingredient1);
         model.addAttribute("ingredient2", ingredient2);
         return "add_formula_page_three";
     }
     @RequestMapping("/done_two_ingredient")
-    public String doneTwoIngredient(Model model, @RequestParam String nameFormula, String measure, Ingredient ingredient1, Ingredient ingredient2) {
-
+    public String doneTwoIngredient(Model model, @RequestParam String nameFormula, String measure,
+                                    Ingredient ingredient1, Ingredient ingredient2) {
+if(ingredient1==null){return "have_no_resources";}
         ingredientService.addIngredient(ingredient1);
         ingredientService.addIngredient(ingredient2);
         Formula formula = new Formula(nameFormula ,measure, ingredient1, ingredient2);
         formulaService.addFormula(formula);
+
         float cash = cashBalanceService.getLastBalance();
         model.addAttribute("cash", cash);
         float profit = profitService.getLastTotalProfit();

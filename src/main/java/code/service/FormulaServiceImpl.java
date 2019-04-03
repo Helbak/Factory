@@ -66,13 +66,25 @@ formulaRepository.save(formula);
     public boolean checkResourcesForFormula(Formula formula, int amount){
 
         if(formula.getOne()==null){return false;}
-        if(formula.getOne()!=null & ingredientService.checkResourcesForFormula(formula.getOne(), amount)==false){return false;}
-        if(formula.getTwo()!=null & ingredientService.checkResourcesForFormula(formula.getTwo(), amount)==false){return false;}
-        if(formula.getTwo()!=null & ingredientService.checkResourcesForFormula(formula.getThree(), amount)==false){return false;}
-        if(formula.getTwo()!=null & ingredientService.checkResourcesForFormula(formula.getFour(), amount)==false){return false;}
-        if(formula.getTwo()!=null & ingredientService.checkResourcesForFormula(formula.getFive(), amount)==false){return false;}
+        if(formula.getOne()!=null &
+                ingredientService.checkResourcesForFormula(formula.getOne(), amount)==true &
+                formula.getTwo()==null)
+        {return true;}
+        if(formula.getTwo()!=null &
+                ingredientService.checkResourcesForFormula(formula.getTwo(), amount)==true &
+                formula.getThree()==null )
+        {return true;}
+        if(formula.getThree()==null &
+                ingredientService.checkResourcesForFormula(formula.getThree(), amount)==true &
+                formula.getFour()==null)
+        {return true;}
+        if(formula.getFour()!=null &
+                ingredientService.checkResourcesForFormula(formula.getFour(), amount )==true &
+                formula.getFive()==null)
+        {return true;}
+        if(formula.getFive()!=null & ingredientService.checkResourcesForFormula(formula.getFive(), amount)==true){return true;}
 
-       return true;
+       return false;
     }
     @Override
     @Transactional

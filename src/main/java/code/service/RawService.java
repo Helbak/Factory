@@ -14,7 +14,7 @@ public interface RawService {
     void newCostPrice(Raw raw, float plusAmount, float newPurchasePrice);
     void newAmount(Raw raw,float plusAmount);
     Raw getRawById(Long id);
-    float getSumOfRows();
+    float getSumOfRaws();
     boolean inProcessRaw (Raw raw, Float inProcessAmount);
 
 }

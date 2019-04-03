@@ -84,7 +84,11 @@
                                     <input type="submit" value="ADD"/>
                                 </div>
                             </form>
-
+                            <form action="/list_raw" method="GET">
+                                <div align="center">
+                                    <input type="submit" value="LIST"/>
+                                </div>
+                            </form>
                         </td>
 
                         <td>
@@ -92,6 +96,11 @@
                                 <h4> Buy Raw Material  :</h4>
                                 <div align="center">
                                     <input type="submit" value="BUY RAW"/>
+                                </div>
+                            </form>
+                            <form action="/list_product" method="GET">
+                                <div align="center">
+                                    <input type="submit" value="LIST"/>
                                 </div>
                             </form>
                         </td>
@@ -104,12 +113,23 @@
                                     <input type="submit" value="ADD"/>
                                 </div>
                             </form>
+                            <form action="/list_formula" method="GET">
+                                <div align="center">
+                                    <input type="submit" value="LIST"/>
+                                </div>
+                            </form>
                         </td>
                         <td>
                             <form action="/produce_product" method="GET">
                                 <h4>   Produce Product:  </h4>
                                 <div align="center">
                                     <input type="submit" value="GET"/>
+                                </div>
+
+                            </form>
+                            <form action="/list_product" method="GET">
+                                <div align="center">
+                                    <input type="submit" value="LIST"/>
                                 </div>
                             </form>
                         </td>

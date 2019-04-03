@@ -46,6 +46,7 @@
                                 <input hidden name="amountOne" value="${amountOne}">
                                 <input hidden name="rawOneId" value="${rawOneId}">
                                 <input hidden name="rawTwoId" value="${raws.id}">
+
                                 <td><input type="number" name="amountTwo"></td>
                                 <td>
                                     <input type="submit" value="ADD" />
@@ -78,6 +79,10 @@
         <input hidden name="measure" value="${measure}">
         <input hidden name="rawOneId" value="${rawOneId}">
         <input hidden name="amountOne" value="${amountOne}">
+
+
+
+
 
         <input type="submit" value="DONE" />
     </form>
