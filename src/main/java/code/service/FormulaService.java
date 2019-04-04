@@ -15,5 +15,5 @@ public interface FormulaService {
     float getWeightOfFormula (long id);
    float getCostPriceFormula (Formula formula);
    boolean checkResourcesForFormula(Formula formula, int amount);
-   Formula preConstructorTwo (String name, String measure, Ingredient one, Ingredient two);
+
 }

@@ -10,23 +10,18 @@ public class Formula {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+private int numberIngr;
     private String name;
     private String measure;
-//    @OneToMany(mappedBy = "formula", cascade = CascadeType.ALL)
-//    private List<Ingredient> one= new ArrayList<Ingredient>();
-//    @OneToMany(mappedBy = "formula", cascade = CascadeType.ALL)
-//    private List<Ingredient> two= new ArrayList<Ingredient>();
-//    @OneToMany(mappedBy = "formula", cascade = CascadeType.ALL)
-//    private List<Ingredient> three= new ArrayList<Ingredient>();
-
-
 
     @OneToOne
     @JoinColumn(name="Id_ingredient_one")
+//@OneToMany(mappedBy = "formula", cascade = CascadeType.ALL)
+//private List<Ingredient> ingredients= new ArrayList<Ingredient>();
     private Ingredient one;
     @OneToOne
     @JoinColumn(name="Id_ingredient_two")
+
     private Ingredient two;
     @OneToOne
     @JoinColumn(name="Id_ingredient_three")
@@ -41,40 +36,23 @@ public class Formula {
     public Formula() {
     }
 
-//    public Formula(String name, String measure, List<Ingredient> one) {
-//        this.name = name;
-//        this.measure = measure;
-//        this.one = one;
-//    }
-//
-//    public Formula(String name, String measure, List<Ingredient> one, List<Ingredient> two) {
-//        this.name = name;
-//        this.measure = measure;
-//        this.one = one;
-//        this.two = two;
-//    }
-//
-//    public Formula(String name, String measure, List<Ingredient> one, List<Ingredient> two, List<Ingredient> three) {
-//        this.name = name;
-//        this.measure = measure;
-//        this.one = one;
-//        this.two = two;
-//        this.three = three;
-//    }
-        public Formula(String name, String measure, Ingredient one) {
+    public Formula(int numberIngr, String name, String measure, Ingredient one) {
+        this.numberIngr = numberIngr;
         this.name = name;
         this.measure = measure;
         this.one = one;
     }
 
-    public Formula(String name, String measure, Ingredient one, Ingredient two) {
+    public Formula(int numberIngr, String name, String measure, Ingredient one, Ingredient two) {
+        this.numberIngr = numberIngr;
         this.name = name;
         this.measure = measure;
         this.one = one;
         this.two = two;
     }
 
-    public Formula(String name, String measure, Ingredient one, Ingredient two, Ingredient three) {
+    public Formula(int numberIngr, String name, String measure, Ingredient one, Ingredient two, Ingredient three) {
+        this.numberIngr = numberIngr;
         this.name = name;
         this.measure = measure;
         this.one = one;
@@ -82,7 +60,8 @@ public class Formula {
         this.three = three;
     }
 
-    public Formula(String name, String measure, Ingredient one, Ingredient two, Ingredient three, Ingredient four) {
+    public Formula(int numberIngr, String name, String measure, Ingredient one, Ingredient two, Ingredient three, Ingredient four) {
+        this.numberIngr = numberIngr;
         this.name = name;
         this.measure = measure;
         this.one = one;
@@ -91,7 +70,8 @@ public class Formula {
         this.four = four;
     }
 
-    public Formula(String name, String measure, Ingredient one, Ingredient two, Ingredient three, Ingredient four, Ingredient five) {
+    public Formula(int numberIngr, String name, String measure, Ingredient one, Ingredient two, Ingredient three, Ingredient four, Ingredient five) {
+        this.numberIngr = numberIngr;
         this.name = name;
         this.measure = measure;
         this.one = one;
@@ -107,6 +87,14 @@ public class Formula {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getNumberIngr() {
+        return numberIngr;
+    }
+
+    public void setNumberIngr(int numberIngr) {
+        this.numberIngr = numberIngr;
     }
 
     public String getName() {

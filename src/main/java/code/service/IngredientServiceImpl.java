@@ -2,6 +2,7 @@ package code.service;
 
 import code.dao.IngredientRepository;
 import code.domain.Ingredient;
+import code.domain.Raw;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

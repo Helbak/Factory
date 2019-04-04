@@ -18,8 +18,8 @@ public class Ingredient {
     private Raw raw;
     @OneToOne
     @JoinColumn(name="Id_formula")
-//@ManyToOne(fetch = FetchType.LAZY)
-//@JoinColumn(name = "formula_id")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "Id_formula")
     private Formula formula;
 
     public Ingredient() {

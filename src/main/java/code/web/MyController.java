@@ -250,7 +250,8 @@ public class MyController {
 
         Ingredient ingredientOne = new Ingredient(amountOne, rawService.getRawById(rawOneId));
 ingredientService.addIngredient(ingredientOne);
-Formula formula = new Formula(nameFormula,measure, ingredientOne);
+
+Formula formula = new Formula(1, nameFormula,measure, ingredientOne);
 formulaService.addFormula(formula);
         float cash = cashBalanceService.getLastBalance();
         model.addAttribute("cash", cash);
@@ -276,11 +277,14 @@ formulaService.addFormula(formula);
     }
     @RequestMapping("/done_two_ingredient")
     public String doneTwoIngredient(Model model, @RequestParam String nameFormula, String measure,
-                                    Ingredient ingredient1, Ingredient ingredient2) {
-if(ingredient1==null){return "have_no_resources";}
-        ingredientService.addIngredient(ingredient1);
-        ingredientService.addIngredient(ingredient2);
-        Formula formula = formulaService.preConstructorTwo(nameFormula, measure,ingredient1,ingredient2);
+                                    Integer idOneIngr, Integer idTwoIngr) {
+if( idOneIngr==0){return "have_no_resources";}
+
+      Ingredient ingredient1 = ingredientService.getIngredientById(idOneIngr);
+        Ingredient ingredient2 = ingredientService.getIngredientById(idTwoIngr);
+        Formula formula = new Formula(2,nameFormula, measure,ingredient1,ingredient2);
+
+
         formulaService.addFormula(formula);
 
         float cash = cashBalanceService.getLastBalance();
@@ -305,13 +309,14 @@ if(ingredient1==null){return "have_no_resources";}
         return "add_formula_page_four";
     }
     @RequestMapping("/done_three_ingredient")
-    public String doneTwoIngredient(Model model, @RequestParam String nameFormula, String measure, Ingredient ingredient1,
-                                    Ingredient ingredient2, Long rawThreeId, Float amountThree) {
+    public String doneTwoIngredient(Model model, @RequestParam String nameFormula, String measure,
+                                    Integer idOneIngr, Integer idTwoIngr, Long rawThreeId, Float amountThree) {
 Ingredient ingredient3 = new Ingredient(amountThree, rawService.getRawById(rawThreeId));
-        ingredientService.addIngredient(ingredient1);
-        ingredientService.addIngredient(ingredient2);
+        Ingredient ingredient1 = ingredientService.getIngredientById(idOneIngr);
+        Ingredient ingredient2 = ingredientService.getIngredientById(idTwoIngr);
+
         ingredientService.addIngredient(ingredient3);
-        Formula formula = new Formula(nameFormula ,measure, ingredient1, ingredient2, ingredient3);
+        Formula formula = new Formula(3,nameFormula ,measure, ingredient1, ingredient2, ingredient3);
         formulaService.addFormula(formula);
 
         float cash = cashBalanceService.getLastBalance();
@@ -335,6 +340,7 @@ Formula formula = formulaService.getFormulaById(formulaId);
         if(formulaService.checkResourcesForFormula(formula,amount)==false){return "have_no_resources";}
 Product product = formulaService.createObjectProduct(formula,amount,markup);
         productService.supplyProductFromProduction(product);
+
             float cash = cashBalanceService.getLastBalance();
         model.addAttribute("cash", cash);
         float profit = profitService.getLastTotalProfit();

@@ -43,9 +43,9 @@
 
                                 <input hidden name="nameFormula" value="${nameFormula}">
                                 <input hidden name="measure" value="${measure}">
-                                <input hidden name="ingredient1" value="${ingredient1}">
-                                <input hidden name="ingredient2" value="${ingredient2}">
-                                <input hidden name="rowThreeId" value="${raws.id}">
+                                <input hidden name="idOneIngr" value="${ingredient1.id}">
+                                <input hidden name="idTwoIngr" value="${ingredient2.id}">
+                                <input hidden name="rawThreeId" value="${raws.id}">
                                 <td><input type="number" name="amountThree"></td>
                                 <td>
                                     <input type="submit" value="ADD" />
@@ -76,8 +76,8 @@
     <form action="/done_two_ingredient" method="POST">
         <input hidden name="nameFormula" value="${nameFormula}">
         <input hidden name="measure" value="${measure}">
-        <input hidden name="ingredient1" value="${ingredient1}">
-        <input hidden name="ingredient2" value="${ingredient2}">
+        <input hidden name="idOneIngr" value="${ingredient1.id}">
+        <input hidden name="idTwoIngr" value="${ingredient2.id}">
 
         <input type="submit" value="DONE" />
     </form>

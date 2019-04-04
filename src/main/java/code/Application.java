@@ -35,6 +35,9 @@ private FormulaService formulaService;
         productService.addProduct(product);
         Product product2 = new Product("Phone", "Sony", "item", 20, 200, 220,200);
         productService.addProduct(product2);
+
+
+
         Raw raw = new Raw("Oil", "Oleina", "gr", 100,30,30);
         rawService.addRaw(raw);
         Raw raw1 = new Raw("Potato", "Farmer", "gr", 0, 12,12 );
@@ -47,11 +50,12 @@ private FormulaService formulaService;
         incomingInvoiceService.addIncomingInvoice(incomingInvoice);
         RawInvoice rawInvoice = new RawInvoice(raw, new Date(),20,100);
         rawInvoiceService.addRawInvoice(rawInvoice);
+
         Ingredient ingredient = new Ingredient(200,raw);
         ingredientService.addIngredient(ingredient);
         Ingredient ingredient1 = new Ingredient(100, raw1);
         ingredientService.addIngredient(ingredient1);
-        Formula formula = new Formula("firstFormula", "gr", ingredient,ingredient1);
-        formulaService.addFormula(formula);
+//        Formula formula = new Formula(2,"firstFormula", "gr", ingredient,ingredient1,empty,empty,empty);
+//        formulaService.addFormula(formula);
     }
 }

@@ -75,7 +75,7 @@ formulaRepository.save(formula);
                 ingredientService.checkResourcesForFormula(formula.getTwo(), amount)==true &
                 formula.getThree()==null )
         {return true;}
-        if(formula.getThree()==null &
+        if(formula.getThree()!=null &
                 ingredientService.checkResourcesForFormula(formula.getThree(), amount)==true &
                 formula.getFour()==null)
         {return true;}
@@ -114,8 +114,6 @@ formulaRepository.save(formula);
          Product product = new Product(name, producer,measure,amount, purchasePrice,sellingPrice,costPrice);
          return product;
     }
-    public Formula preConstructorTwo (String name, String measure, Ingredient one, Ingredient two){
-        Formula formula = new Formula(name, measure,  one,  two);
-        return formula;
-    }
+
+
 }
